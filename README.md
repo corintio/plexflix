@@ -54,13 +54,19 @@ won't be able to communicate with it
 See https://github.com/haugene/docker-transmission-openvpn for details on how to configure the VPN 
 access. If you are using a custom VPN, copy your VPN Config to `/config/vpn`
 
-## Borgmatic (backup
+## Borgmatic (backup)
 Before borgmatic can do its magic, you need to create a new repository. Make sure to set your 
 password in `/config/borgmatic/config.yml` first (see "Configure your environment" above)
 
+To simplify access to your backups, create the following aliases in our `.bashrc`:
+```
+alias borgmatic='docker-compose run --rm  borgmatic borgmatic'
+alias borg='docker-compose run --rm borgmatic borg'
+```
+
 Command to initialize a new repo:
 ```
-docker-compose run borgmatic sh -c "borgmatic --init --encryption repokey-blake2"
+borgmatic --init --encryption repokey-blake2
 ```
 
 ## Other apps
@@ -90,8 +96,11 @@ external access
 
 # To Do
 - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
+- Replace Basic Auth with Google Authentication oAuth (https://caddyserver.com/docs/http.login)
 - Auto clean .trash (remove older than 1 month)
 
 # Future
+- Automate full restore
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
 - Cockpit https://cockpit-project.org/
+- Investigate Deluge+SOCKS5 (https://forum.deluge-torrent.org/viewtopic.php?t=54979)
