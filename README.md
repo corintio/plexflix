@@ -4,7 +4,6 @@ This is my personal Mediaserver installation, based on [Dockerized](http://docke
 apps. 
 
 ### Applications (and their respective docker projects):
-
 - Plex - https://github.com/linuxserver/docker-plex
 - Sonarr - https://github.com/linuxserver/docker-sonarr
 - Radarr - https://github.com/linuxserver/docker-radarr
@@ -19,27 +18,44 @@ apps.
 - Portainer - https://hub.docker.com/r/portainer/portainer
 
 ### Features:
-- Integrated solution, with automatic download for TV shows and movies
+- Fully automated solution, with automatic download for TV shows and movies
 - Google Drive integration, for "unlimited" storage in the cloud (encrypted)
 - VPN integration for protected torrent downloading
 - Automatic SSL (https) certificates generation
-- Automatic daily backups using borg (only for configuration, as the media will be saved in Google Drive)
+- Automatic daily backups using borg (only for configuration and app data, as the 
+  media will be saved in Google Drive)
 - Automatic update of docker images using watchtower
 
 ### Requirements:
 - VPN account
 - Google Drive account
 
-# Initial Configuration
 
-## Configure your environment
+# Setup
 
+## Install required software
+1. Create a user, preferable with uid=1000/gid=1000 (if not, change these values in 
+   the `.env` file)
+2. Login with the newly created user
+3. Install Docker
+    ```
+    sudo curl -L https://get.docker.com | bash
+    sudo usermod -aG docker $USER
+    ```
+4. Install Docker Compose
+    ```
+    pip install docker-compose
+    ```
+
+
+## Initial Configuration
 - Create a `.env` file with your configuration (see `.env.sample`)
 - Create a copy of `defaults` folder called `config`
-- Create borgmatic configurtions in `config/borgmatic/config.yml` (see the samples)
+- Create borgmatic configurations in `config/borgmatic/config.yml` (see the samples)
 
 ## Plex
-To be able to configure plex for the first time, add the following to the `docker-compose.override.yml`:
+To be able to configure plex for the first time, add the following to the 
+`docker-compose.override.yml`:
 ```
 ---
 version: '3.7'
@@ -47,16 +63,18 @@ services:
   plex:
     network_mode: host
 ```
-Remove this after the plex server is properly configured and claimed, or else the other apps 
-won't be able to communicate with it
+Remove this override after the plex server is properly configured and claimed, or else 
+the other apps won't be able to communicate with it
 
 ## Transmission + VPN
-See https://github.com/haugene/docker-transmission-openvpn for details on how to configure the VPN 
-access. If you are using a custom VPN, copy your VPN Config to `/config/vpn`
+See https://github.com/haugene/docker-transmission-openvpn for details on how to
+configure the VPN access. If you are using a custom VPN, copy your VPN Config 
+to `/config/vpn`
 
 ## Borgmatic (backup)
-Before borgmatic can do its magic, you need to create a new repository. Make sure to set your 
-password in `/config/borgmatic/config.yml` first (see "Configure your environment" above)
+Before borgmatic can do its magic, you need to create a new repository. Make sure to set 
+your password in `/config/borgmatic/config.yml` first (see "Configure your environment" 
+above)
 
 To simplify access to your backups, create the following aliases in our `.bashrc`:
 ```
@@ -70,8 +88,9 @@ borgmatic --init --encryption repokey-blake2
 ```
 
 ## Other apps
-Most applications need to be configured before being able to be properly proxied (ex: add base path).
-To be able to do it, create a `docker-compose.override.yml` exposing the ports for the app. Ex:
+Most applications need to be configured before being able to be properly proxied (ex: 
+add base path). To be able to do it, create a `docker-compose.override.yml` exposing the 
+ports for the app. Ex:
 ```
 ---
 version: '3.7'
@@ -81,8 +100,8 @@ services:
     - 9117:9117
 ```
 
-After starting the container, you should be able to go to http://your.domain.com:9117 and configure Jackett
-to the correct base path `/jackett`
+After starting the app container, you should be able to go to 
+http://your.domain.com:9117 and configure Jackett to the correct base path `/jackett`
 
 Apps that require this workaround, and their respective ports that need to be open:
 - Sonarr: 8989
@@ -91,8 +110,8 @@ Apps that require this workaround, and their respective ports that need to be op
 - Jackett: 9117
 - Ombi: 3579
 
-Remember to remove this after the app is properly configured, as the ports will be exposed to 
-external access
+Remember to remove this override after the app is properly configured, as the ports will 
+be exposed to external access
 
 # To Do
 - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
@@ -103,4 +122,4 @@ external access
 - Automate full restore
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
 - Cockpit https://cockpit-project.org/
-- Investigate Deluge+SOCKS5 (https://forum.deluge-torrent.org/viewtopic.php?t=54979)
+- Investigate qBittorrent+SOCKS5
