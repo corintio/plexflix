@@ -1,0 +1,15 @@
+# https://stackoverflow.com/a/38753971
+
+# myapp:
+#   build: .
+#   ports:
+#     - "80:80"
+#   extra_hosts:
+#     - "dockerhost:$DOCKERHOST"
+# 
+#     
+# localhost {
+# 	proxy / {$DOCKER_HOST_IP}:4000
+#     tls off
+# }
+# 

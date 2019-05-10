@@ -1,0 +1,84 @@
+- name: Setup server for Plex and friends
+  hosts: "all"
+  become: false
+  gather_facts: true
+
+  tasks:
+  - name: Install basic tools
+    apt: name={{item}} state=latest update_cache=yes
+    with_items: [wget, curl, make, ufw]
+    become: true
+
+  - name: Install Docker
+    # apt: name=docker-ce state=latest
+    # sudo apt-get upgrade docker-ce
+    shell: curl -L https://get.docker.com | bash creates=/etc/docker/ warn=False
+    become: true
+
+  - name: Install Docker Compose
+    pip: 
+      name: docker-compose
+      state: latest
+    become: true
+
+  - name: Add docker-compose alias
+    lineinfile: 
+      path: /home/vagrant/.bash_aliases
+      create: true
+      line: 'alias ddc="cd /vagrant && docker-compose'
+
+  - name: Make sure we don't have the default ctop
+    apt: name=ctop state=absent
+    become: true
+
+  - name: Add ctop alias
+    lineinfile: 
+      path: /home/vagrant/.bash_aliases
+      line: 'alias ctop="docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest"'
+
+  - name: Add user to docker group
+    user: 
+      name: '{{ ansible_user_id }}'
+      groups: docker
+      append: yes
+    become: true
+
+  # Setup Firewall rules
+  - ufw:
+      logging: on
+    become: true
+  - ufw:
+      direction: incoming
+      policy: deny
+    become: true
+  - ufw:
+      direction: outgoing
+      policy: allow
+    become: true
+  - ufw:
+      rule: allow
+      port: "{{item}}"
+      proto: tcp
+    with_items: [80, 443, ssh, 32400, 2015]
+    become: true
+  - ufw:
+      rule: allow
+      src: '{{ item }}'
+    with_items:
+      - 172.16.0.0/12
+    become: true
+  - ufw:
+      state: enabled
+    become: true
+
+
+  # - name: Create user
+  #   user: 
+  #     name: plexflix
+  #     uid: 2000
+  #     groups: docker
+
+
+# Add my public-key  
+# git clone plexflix
+# create configuration

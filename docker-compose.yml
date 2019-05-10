@@ -1,0 +1,215 @@
+---
+version: '3.7'
+services:
+  caddy:
+    image: lucaslorentz/caddy-docker-proxy
+    container_name: caddy
+    ports:
+      - 80:80
+      - 443:443
+    command: -agree=true ${CA_URL:-}
+    env_file:
+      - .env
+    labels:
+      caddy: '${DOMAIN}'
+      caddy.tls.dns: cloudflare
+      caddy.log: /var/log/access.log
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/caddy:/root/.caddy
+      - ./logs/caddy:/var/log
+    restart: always
+
+  transmission:
+    image: haugene/transmission-openvpn
+    container_name: transmission
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    labels:
+      caddy.address: '${DOMAIN}/transmission'
+      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy.targetport: 9091
+      caddy.targetpath: /transmission
+      caddy.proxy.transparent:
+    ports:
+      - 9091:9091
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - ./config/transmission:/config
+      - ./localtime:/etc/localtime:ro
+      - ./data/downloads/:/data
+      - ./config/vpn:/etc/openvpn/custom
+    env_file: .env
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    env_file: .env
+    labels:
+      caddy.address: '${DOMAIN}/radarr'
+      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy.targetport: 7878
+      caddy.targetpath: /radarr
+      caddy.proxy.transparent:
+    volumes:
+      - ./config/radarr:/config
+      - ./data:/data:shared
+      - ./logs/radarr:/config/logs
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:preview
+    container_name: sonarr
+    env_file: .env
+    labels:
+      caddy.address: '${DOMAIN}/sonarr'
+      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy.targetport: 8989
+      caddy.targetpath: /sonarr
+      caddy.proxy.transparent:
+    volumes:
+      - ./config/sonarr:/config
+      - ./data:/data:shared
+      - ./logs/sonarr:/config/logs
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    env_file: .env
+    labels:
+      caddy_0.address: '${DOMAIN}/jackett'
+      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy_0.targetport: 9117
+      caddy_0.targetpath: /jackett
+      caddy_0.proxy.transparent:
+      caddy_1.address: '${DOMAIN}/jackett/api'
+      caddy_1.targetport: 9117
+      caddy_1.targetpath: /jackett/api
+      caddy_1.proxy.transparent:
+    volumes:
+      - ./config/jackett:/config/Jackett
+      - ./data/jackett:/downloads
+    restart: unless-stopped
+
+  ombi:
+    image: linuxserver/ombi
+    container_name: ombi
+    env_file: .env
+    labels:
+      caddy.address: '${DOMAIN}/ombi'
+      caddy.targetport: 3579
+      caddy.targetpath: /ombi
+      caddy.proxy.transparent:
+    volumes:
+      - ./config/ombi:/config
+      - ./logs/ombi:/config/Logs
+    restart: unless-stopped
+    
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    env_file: .env
+    environment:
+      - VERSION=latest
+    volumes:
+      - ./config/plex:/config
+      - ./logs/plex:/config/Library/Application Support/Plex Media Server/Logs
+      - ./data:/data:shared
+      - type: tmpfs
+        target: /transcode
+        tmpfs:
+          size: '4g'      
+    # labels:
+    #   caddy.address: '${DOMAIN}'
+    #   caddy.targetport: 32400
+    #   caddy.proxy.transparent:
+    ports:
+      - 32400:32400
+      - 32400:32400/udp 
+      - 32469:32469 
+      - 32469:32469/udp 
+      - 5353:5353/udp 
+      - 1900:1900/udp
+    restart: unless-stopped
+
+  tautulli:
+    image: linuxserver/tautulli
+    container_name: tautulli
+    labels:
+      caddy_0.address: '${DOMAIN}/tautulli'
+      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy_0.targetport: 8181
+      caddy_0.targetpath: /tautulli
+      caddy_0.proxy.transparent:
+      caddy_1.address: '${DOMAIN}/tautulli/api'
+      caddy_1.targetport: 8181
+      caddy_1.targetpath: /tautulli/api
+      caddy_1.proxy.transparent:
+    env_file: .env
+    volumes:
+      - ./config/tautulli:/config
+      - ./config/plex/Library/Application Support/Plex Media Server/Logs:/logs:ro
+      - ./logs/tautulli:/config/logs
+    restart: unless-stopped
+
+  rclone:
+    image: mumiehub/rclone-mount
+    container_name: rclone
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    security_opt:
+      - apparmor:unconfine
+    env_file: .env
+    environment:
+      - "RemotePath=gmedia:"
+    volumes:
+      - ./config/rclone:/config
+      - ./data/gmedia/:/mnt/mediaefs:shared
+      - ./data:/data
+    restart: always
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    env_file: .env    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./localtime:/etc/localtime:ro
+    command: ${WATCHTOWER_SCHEDULE:- --schedule "0 0 4 * * *"}
+    restart: always
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    labels:
+      caddy.address: '${DOMAIN}'
+      caddy.redir: '/portainer /portainer/'
+      caddy.proxy: '/portainer/ portainer:9000'
+      caddy.proxy.without: /portainer
+      caddy.proxy.transparent:
+      caddy.proxy.websocket:
+    volumes:
+      - ./config/portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  borgmatic:
+    image: b3vis/borgmatic
+    container_name: borgmatic
+    env_file: .env
+    volumes:
+      - .env:/mnt/source/.env:ro
+      - ./config:/mnt/source/config:ro
+      - ./data/backups:/mnt/repository
+      - ./config/borgmatic:/etc/borgmatic.d/
+      - ./config/borgmatic/borg:/root/.config/borg
+      - ./data/borgmatic/.cache:/root/.cache/borg
+    restart: always
