@@ -12,7 +12,7 @@ services:
       - .env
     labels:
       caddy: '${DOMAIN}'
-      caddy.tls.dns: cloudflare
+      caddy.tls.dns: '${TLS_DNS_PROVIDER}'
       caddy.log: /var/log/access.log
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
