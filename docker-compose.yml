@@ -33,8 +33,6 @@ services:
       caddy.targetport: 9091
       caddy.targetpath: /transmission
       caddy.proxy.transparent:
-    ports:
-      - 9091:9091
     dns:
       - 8.8.8.8
       - 8.8.4.4
