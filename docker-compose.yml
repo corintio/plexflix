@@ -60,6 +60,8 @@ services:
       - ./config/radarr:/config
       - ./data:/data:shared
       - ./logs/radarr:/config/logs
+    depends_on:
+      - rclone
     restart: unless-stopped
 
   sonarr:
@@ -76,6 +78,8 @@ services:
       - ./config/sonarr:/config
       - ./data:/data:shared
       - ./logs/sonarr:/config/logs
+    depends_on:
+      - rclone
     restart: unless-stopped
 
   jackett:
@@ -125,10 +129,10 @@ services:
         target: /transcode
         tmpfs:
           size: '4g'      
-    # labels:
-    #   caddy.address: '${DOMAIN}'
-    #   caddy.targetport: 32400
-    #   caddy.proxy.transparent:
+    labels:
+      caddy.address: '${DOMAIN}:32400'
+      caddy.targetport: 32400
+      caddy.proxy.transparent:
     ports:
       - 32400:32400
       - 32400:32400/udp 
@@ -136,6 +140,8 @@ services:
       - 32469:32469/udp 
       - 5353:5353/udp 
       - 1900:1900/udp
+    depends_on:
+      - rclone
     restart: unless-stopped
 
   tautulli:

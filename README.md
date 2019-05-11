@@ -72,9 +72,9 @@ configure the VPN access. If you are using a custom VPN, copy your VPN Config
 to `/config/vpn`
 
 ## Borgmatic (backup)
-Before borgmatic can do its magic, you need to create a new repository. Make sure to set 
-your password in `/config/borgmatic/config.yml` first (see "Configure your environment" 
-above)
+Before borgmatic can do its magic, you need to create a new borg repository. Make sure 
+to set your password in `/config/borgmatic/config.yml` first (see "Configure your 
+environment" above)
 
 To simplify access to your backups, create the following aliases in our `.bashrc`:
 ```
