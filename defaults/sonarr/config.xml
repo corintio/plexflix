@@ -1,0 +1,13 @@
+<Config>
+  <Port>8989</Port>
+  <UrlBase>sonarr</UrlBase>
+  <BindAddress>*</BindAddress>
+  <SslPort>9898</SslPort>
+  <EnableSsl>False</EnableSsl>
+  <LogLevel>Info</LogLevel>
+  <Branch>phantom-develop</Branch>
+  <LaunchBrowser>False</LaunchBrowser>
+  <AuthenticationMethod>None</AuthenticationMethod>
+  <SslCertHash></SslCertHash>
+  <UpdateMechanism>Docker</UpdateMechanism>
+</Config>

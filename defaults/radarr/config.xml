@@ -1,0 +1,14 @@
+<Config>
+  <Port>7878</Port>
+  <UrlBase>radarr</UrlBase>
+  <BindAddress>*</BindAddress>
+  <SslPort>9797</SslPort>
+  <EnableSsl>False</EnableSsl>
+  <LogLevel>Info</LogLevel>
+  <Branch>master</Branch>
+  <LaunchBrowser>False</LaunchBrowser>
+  <UpdateMechanism>BuiltIn</UpdateMechanism>
+  <AnalyticsEnabled>False</AnalyticsEnabled>
+  <AuthenticationMethod>None</AuthenticationMethod>
+  <SslCertHash></SslCertHash>
+</Config>
