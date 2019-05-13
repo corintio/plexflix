@@ -132,7 +132,7 @@ services:
     #   caddy.targetport: 32400
     #   caddy.proxy.transparent:
     #   caddy.proxy.websocket:
-    # network_mode: host
+    network_mode: host
     ports:
       - 32400:32400
       - 32400:32400/udp 
