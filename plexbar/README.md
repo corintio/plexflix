@@ -1,7 +1,7 @@
 PlexBar
 =======
 
-This is a plugin for BitBar. Configure your servers in `~/.plexbar.yml`. 
+This is a plugin for [BitBar](https://getbitbar.com/). Configure your servers in `~/.plexbar.yml`. 
 
 Sample config:
 ```
