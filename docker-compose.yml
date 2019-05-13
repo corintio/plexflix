@@ -96,7 +96,7 @@ services:
       caddy_1.proxy.transparent:
     volumes:
       - ./config/jackett:/config/Jackett
-      - ./data/jackett:/downloads
+      - ./data/downloads/watch:/downloads
     restart: unless-stopped
 
   ombi:
@@ -127,10 +127,12 @@ services:
         target: /transcode
         tmpfs:
           size: '4g'      
-    labels:
-      caddy.address: '${DOMAIN}:32400'
-      caddy.targetport: 32400
-      caddy.proxy.transparent:
+    # labels:
+    #   caddy.address: '${DOMAIN}'
+    #   caddy.targetport: 32400
+    #   caddy.proxy.transparent:
+    #   caddy.proxy.websocket:
+    # network_mode: host
     ports:
       - 32400:32400
       - 32400:32400/udp 
@@ -210,7 +212,8 @@ services:
     container_name: borgmatic
     env_file: .env
     volumes:
-      - .env:/mnt/source/.env:ro
+      - ./.env:/mnt/source/.env:ro
+      - ./docker-compose.override.yml:/mnt/source/docker-compose.override.yml:ro
       - ./config:/mnt/source/config:ro
       - ./data/backups:/mnt/repository
       - ./config/borgmatic:/etc/borgmatic.d/

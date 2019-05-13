@@ -1,11 +1,29 @@
 location:
     source_directories:
         - /mnt/source/.env
-        - /mnt/source/config/
+        - /mnt/source/docker-compose.override.yml
+        - /mnt/source/config/borgmatic
+        - /mnt/source/config/caddy
+        - /mnt/source/config/jackett
+        - /mnt/source/config/ombi
+        - /mnt/source/config/portainer
+        - /mnt/source/config/radarr
+        - /mnt/source/config/rclone
+        - /mnt/source/config/sonarr
+        - /mnt/source/config/tautulli
+        - /mnt/source/config/plex/Library/Application Support/Plex Media Server/Preferences.xml
+        - /mnt/source/config/plex/Library/Application Support/Plex Media Server/Plug-in Support/Databases
     repositories:
         - /mnt/repository
     one_file_system: true
 
+    exclude_patterns:
+        - '/**/radarr/MediaCover/*'
+        - '/**/sonarr/MediaCover/*'
+        - '/**/tautulli/backups/*'
+        - '/**/cache/*'
+        - '/**/logs/*'
+        
 storage:
     encryption_passphrase: "DonNotMissToChangeYourPassphrase"
     compression: lz4
