@@ -9,8 +9,7 @@ secrets
 /*.retry
 *.log
 docker-compose.override.yml
-defaults/borgmatic/config.yaml
-defaults/borgmatic/crontab.txt
 
 docker-services
 homescripts
+rclone-mount
