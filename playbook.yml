@@ -25,7 +25,7 @@
     lineinfile: 
       path: /home/vagrant/.bash_aliases
       create: true
-      line: 'alias ddc="cd /vagrant && docker-compose'
+      line: "alias ddc='f(){(cd /vagrant && docker-compose \"$@\")};f'"
 
   - name: Make sure we don't have the default ctop
     apt: name=ctop state=absent
@@ -43,33 +43,33 @@
       append: yes
     become: true
 
-  # Setup Firewall rules
-  - ufw:
-      logging: on
-    become: true
-  - ufw:
-      direction: incoming
-      policy: deny
-    become: true
-  - ufw:
-      direction: outgoing
-      policy: allow
-    become: true
-  - ufw:
-      rule: allow
-      port: "{{item}}"
-      proto: tcp
-    with_items: [80, 443, ssh, 32400, 2015]
-    become: true
-  - ufw:
-      rule: allow
-      src: '{{ item }}'
-    with_items:
-      - 172.16.0.0/12
-    become: true
-  - ufw:
-      state: enabled
-    become: true
+  # # Setup Firewall rules
+  # - ufw:
+  #     logging: on
+  #   become: true
+  # - ufw:
+  #     direction: incoming
+  #     policy: deny
+  #   become: true
+  # - ufw:
+  #     direction: outgoing
+  #     policy: allow
+  #   become: true
+  # - ufw:
+  #     rule: allow
+  #     port: "{{item}}"
+  #     proto: tcp
+  #   with_items: [80, 443, ssh, 32400, 2015]
+  #   become: true
+  # - ufw:
+  #     rule: allow
+  #     src: '{{ item }}'
+  #   with_items:
+  #     - 172.16.0.0/12
+  #   become: true
+  # - ufw:
+  #     state: enabled
+  #   become: true
 
 
   # - name: Create user

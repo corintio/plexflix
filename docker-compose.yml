@@ -182,16 +182,6 @@ services:
       - ./data:/data
     restart: always
 
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    env_file: .env    
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./localtime:/etc/localtime:ro
-    command: ${WATCHTOWER_SCHEDULE:- --schedule "0 0 4 * * *"}
-    restart: always
-
   portainer:
     image: portainer/portainer
     container_name: portainer
@@ -205,6 +195,19 @@ services:
     volumes:
       - ./config/portainer:/data
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  #####################################################################################
+  # Maintenance containers
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    env_file: .env    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./localtime:/etc/localtime:ro
+    command: --schedule ${WATCHTOWER_SCHEDULE:- "0 0 4 * * *"}
     restart: always
 
   borgmatic:

@@ -114,15 +114,16 @@ Remember to remove this override after the app is properly configured, as the po
 be exposed to external access
 
 # To Do
-- Sync backups folder to GDrive: 
-  `rclone sync -c -v --config /config/rclone/.rclone.conf --transfers=10 --checkers=20 /config/backups gcrypt:/backups`
-- Log rotate https://hub.docker.com/r/blacklabelops/logrotate
+- CronJobs: https://hub.docker.com/r/willfarrell/crontab?
+  - Sync backups folder to GDrive: 
+    `rclone sync -c -v --config /config/rclone/.rclone.conf --transfers=10 --checkers=20 /config/backups gcrypt:/backups`
+  - Auto clean .trash (remove older than 1 month)
+  - Docker-GC: https://github.com/spotify/docker-gc
+  - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
+  - Call watchtower(?)
 - Replace Basic Auth with Google Authentication oAuth (https://caddyserver.com/docs/http.login)
-- Auto clean .trash (remove older than 1 month)
 - Finish Ansible setup
-- Docker-GC: https://github.com/clockworksoul/docker-gc-cron
-- Remove Radarr/Sonarr API basic auth
-
+- Remove http authentication from Radarr/Sonarr API
 # Future
 - Automate full restore
 - Auto convert magnet links to .torrent files in the watch folder
