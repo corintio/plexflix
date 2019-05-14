@@ -116,7 +116,7 @@ be exposed to external access
 # To Do
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Sync backups folder to GDrive: 
-    `rclone sync -c -v --config /config/rclone/.rclone.conf --transfers=10 --checkers=20 /config/backups gcrypt:/backups`
+    `rclone sync -c -v --config /config/.rclone.conf --transfers=10 --checkers=20 /data/backups gcrypt:/backups`
   - Auto clean .trash (remove older than 1 month)
   - Docker-GC: https://github.com/spotify/docker-gc
   - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
