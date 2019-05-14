@@ -30,6 +30,30 @@ apps.
 - VPN account
 - Google Drive account
 
+# Folder structure
+
+```
+.
+├── .env                           - Environment configuration (options, servers, etc..)
+├── docker-compose.yml             - Main Compose services configuration. Don't change!
+├── docker-compose.override.yml    - Compose overrides. Add customizations here
+├── config                         - Folder with config and critical data for all services
+│   ├── borgmatic         
+│   │   ├── config.yml             - Borgmatic backup configuration
+│   │   └── crontab.txt            - Schedule for backup
+│   ├── rclone            
+│   │   └── .rclone.conf           - Configuration for rclone's remotes
+│   ├── plex
+│   ├── sonarr            
+│   ├── radarr            
+│   ├── ...               
+├── data                  
+│   ├── gmedia                     - This is where your media will be mounted from GDrive
+│   ├── backups                    - Folder that store the daily backups
+│   ├── downloads                  - Used by transmission for downloads
+│   ├── ...               
+└── logs                           - Logs for most apps
+```
 
 # Setup
 
