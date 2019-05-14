@@ -16,7 +16,6 @@ location:
     repositories:
         - /mnt/repository
     one_file_system: true
-
     exclude_patterns:
         - '/**/radarr/MediaCover/*'
         - '/**/sonarr/MediaCover/*'
@@ -48,6 +47,6 @@ hooks:
     before_backup:
         - echo "Starting a backup job."
     after_backup:
-        - echo "Backup created."
+        - /etc/borgmatic.d/upload_backup.sh
     on_error:
         - echo "Error while creating a backup."

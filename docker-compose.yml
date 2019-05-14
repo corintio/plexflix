@@ -210,4 +210,5 @@ services:
       - ./config/borgmatic:/etc/borgmatic.d/
       - ./config/borgmatic/borg:/root/.config/borg
       - ./data/borgmatic/.cache:/root/.cache/borg
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always

@@ -1,0 +1,31 @@
+[gd]
+type = drive
+scope = drive
+client_id = <CLIENTID>
+client_secret = <CLIENTSECRET>
+token = {"access_token":"<ACCESSTOKEN>","token_type":"Bearer","refresh_token":"<REFRESHTOKEN>","expiry":"2018-09-17T11:30:55.640150617-04:00"}
+
+[gcrypt]
+type = crypt
+remote = gd:media
+filename_encryption = standard
+directory_name_encryption = true
+password = <PASSWORD>
+password2 = <PASSWORD>
+
+[gcache]
+type = cache
+remote = gd:media
+chunk_size = 5M
+chunk_total_size = 600G
+info_age = 168h
+workers = 8
+tmp_wait_time = 10m
+
+[gmedia]
+type = crypt
+remote = gcache:
+filename_encryption = standard
+directory_name_encryption = true
+password = <PASSWORD>
+password2 = <PASSWORD>
