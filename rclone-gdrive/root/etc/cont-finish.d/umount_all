@@ -1,4 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-fusermount -u -z ${LOCAL_MOUNT}
-fusermount -u -z ${REMOTE_MOUNT}

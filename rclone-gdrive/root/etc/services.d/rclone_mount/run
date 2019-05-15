@@ -2,8 +2,7 @@
 
 export LOGFILE="/logs/rclone_mount.log"
 
-s6-setuidgid abc mkdir -p ${REMOTE_MOUNT}
-
-exec s6-setuidgid abc /usr/bin/rclone mount ${REMOTE_PATH} ${REMOTE_MOUNT} \
---log-level INFO --log-file=$LOGFILE --rc \
---config $CONFIG_FILE $RCLONE_MOUNT_OPTIONS
+exec s6-setuidgid abc /usr/bin/rclone mount rclone-gdrive-union: ${LOCAL_MOUNT} \
+--log-level DEBUG --log-file=$LOGFILE \
+--cache-dir /data/rclone/cache \
+--config /rclone.conf ${RCLONE_MOUNT_OPTIONS}
