@@ -153,7 +153,7 @@ services:
     restart: unless-stopped
 
   rclone:
-    image: mumiehub/rclone-mount
+    build : rclone-gdrive
     container_name: rclone
     cap_add:
       - SYS_ADMIN
@@ -162,13 +162,28 @@ services:
     security_opt:
       - apparmor:unconfine
     env_file: .env
-    environment:
-      - "RemotePath=gmedia:"
     volumes:
       - ./config/rclone:/config
-      - ./data/gmedia/:/mnt/mediaefs:shared
-      - ./data:/data
+      - ./data:/data:shared
     restart: always
+
+# rclone:
+  #   image: mumiehub/rclone-mount
+  #   container_name: rclone
+  #   cap_add:
+  #     - SYS_ADMIN
+  #   devices:
+  #     - /dev/fuse
+  #   security_opt:
+  #     - apparmor:unconfine
+  #   env_file: .env
+  #   environment:
+  #     - "RemotePath=gmedia:"
+  #   volumes:
+  #     - ./config/rclone:/config
+  #     - ./data/gmedia/:/mnt/mediaefs:shared
+  #     - ./data:/data
+  #   restart: always
 
   portainer:
     image: portainer/portainer

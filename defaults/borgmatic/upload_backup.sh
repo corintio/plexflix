@@ -1,7 +1,12 @@
 #!/bin/sh
 
-if ! which docker; then
-    apk add --no-cache docker
-fi
+# Install docker if not available in this container
+which docker && apk add --no-cache docker
 
-docker exec rclone rclone sync -c -v --config /config/.rclone.conf --transfers=10 --checkers=20 /data/backups gcrypt:/backups
+# Execute the command rclone sync in the rclone containter
+docker exec rclone rclone sync -v \
+    --checksum \
+    --config /config/.rclone.conf \
+    --transfers=10 \
+    --checkers=20 \
+    /data/backups gcrypt:/backups

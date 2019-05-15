@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv sh
+
+if pidof -o %PPID "upload_cloud"; then
+  echo "Already running."
+  exit 1
+fi
+
+# RClone Config file
+export RCLONE_CONFIG=/config/rclone.conf
+export LOCKFILE="/var/lock/`basename $0`"
+export LOGFILE="/logs/upload_cloud.log"
+
+export MIN_AGE=5
+
+FROM=${LOCAL_PATH}
+TO=${REMOTE_PATH}
+
+if find $FROM/* -type f -mmin +${MIN_AGE} | read; then
+  echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD STARTED" | tee -a $LOGFILE
+  # MOVE FILES OLDER THEN 5 MINUTES
+  /usr/bin/rclone move $FROM $TO --config ${RCLONE_CONFIG} -v -P --min-age ${MIN_AGE}m --log-file=$LOGFILE ${RCLONE_UPLOAD_OPTIONS}
+  echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD ENDED" | tee -a $LOGFILE
+  /usr/bin/rclone rc vfs/forget
+fi

@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv sh
+
+s6-svwait -t 5000 -u /var/run/s6/services/rclone_mount
+
+mkdir -p ${LOCAL_PATH}
+mkdir -p ${LOCAL_MOUNT}
+
+exec /usr/bin/unionfs -f -o ${UNIONFS_OPTIONS} \
+    ${LOCAL_PATH}=RW:${REMOTE_MOUNT}=RW ${LOCAL_MOUNT} 2> /logs/unionfs.log

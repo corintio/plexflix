@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv sh
+
+export LOGFILE="/logs/upload_cloud.log"
+
+mkdir -p ${REMOTE_MOUNT}
+
+exec /usr/bin/rclone mount ${REMOTE_PATH} ${REMOTE_MOUNT} \
+-v --log-file=$LOGFILE \
+--config $CONFIG_FILE $RCLONE_MOUNT_OPTIONS
