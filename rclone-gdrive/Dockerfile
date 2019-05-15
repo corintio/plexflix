@@ -22,19 +22,17 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     RCLONE_MOUNT_OPTIONS="--allow-other \
     --dir-cache-time 96h \
     --drive-chunk-size 32M \
-    --log-level INFO \
-    --log-file /logs/rclone.log \
     --timeout 2h \
     --umask 002 \
     --rc" \
     RCLONE_UPLOAD_OPTIONS="-c \
-    --transfers=3 \
-    --checkers=3 \
-    --tpslimit 3 \
+    --transfers=10 \
+    --checkers=10 \
+    --no-traverse \
     --delete-after \
     --drive-chunk-size 32M \
     --delete-empty-src-dirs" \
-    UNIONFS_OPTIONS="cow,allow_other" \
+    UNIONFS_OPTIONS="cow,allow_other,auto_unmount" \
     UPLOAD_CRONTAB="* * * * *"
 
 ADD scripts /scripts

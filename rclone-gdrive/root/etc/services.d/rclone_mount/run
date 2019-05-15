@@ -2,8 +2,8 @@
 
 export LOGFILE="/logs/upload_cloud.log"
 
-mkdir -p ${REMOTE_MOUNT}
+s6-setuidgid abc mkdir -p ${REMOTE_MOUNT}
 
-exec /usr/bin/rclone mount ${REMOTE_PATH} ${REMOTE_MOUNT} \
--v --log-file=$LOGFILE \
+exec s6-setuidgid abc /usr/bin/rclone mount ${REMOTE_PATH} ${REMOTE_MOUNT} \
+--log-level INFO --log-file=$LOGFILE --rc \
 --config $CONFIG_FILE $RCLONE_MOUNT_OPTIONS

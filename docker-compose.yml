@@ -164,6 +164,7 @@ services:
     env_file: .env
     volumes:
       - ./config/rclone:/config
+      - ./logs/rclone:/logs
       - ./data:/data:shared
     restart: always
 
