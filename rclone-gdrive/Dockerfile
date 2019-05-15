@@ -35,8 +35,6 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     UNIONFS_OPTIONS="cow,allow_other,auto_unmount" \
     UPLOAD_CRONTAB="* * * * *"
 
-ADD scripts /scripts
-ADD crontab.txt /crontab.txt
 COPY root/ /
 
 VOLUME ["/data", "/config", "/logs"]

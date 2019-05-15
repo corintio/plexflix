@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+cd /logs
+touch cron.log rclone_mount.log unionfs.log upload_cloud.log
+chown -R abc:abc /logs

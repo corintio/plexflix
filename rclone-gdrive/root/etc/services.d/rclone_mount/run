@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv sh
 
-export LOGFILE="/logs/upload_cloud.log"
+export LOGFILE="/logs/rclone_mount.log"
 
 s6-setuidgid abc mkdir -p ${REMOTE_MOUNT}
 
