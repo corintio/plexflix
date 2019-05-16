@@ -1,7 +1,4 @@
 #!/usr/bin/with-contenv sh
 
-# this line here is what we should have to get rid of the hard link error
-# touch /etc/crontab # /etc/cron.*/*
-
 echo "${UPLOAD_CRONTAB} /usr/bin/with-contenv sh -c '/scripts/upload_cloud >/dev/null 2>&1'" | crontab -u abc -
 exec /usr/sbin/crond -f -l 8 -L /logs/cron.log
