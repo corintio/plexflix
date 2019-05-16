@@ -41,7 +41,7 @@ COPY root/ /
 
 VOLUME ["/data", "/config", "/logs"]
 
-WORKDIR /data
+WORKDIR /rclone
 
 # Use this docker Options in run
 # --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined
