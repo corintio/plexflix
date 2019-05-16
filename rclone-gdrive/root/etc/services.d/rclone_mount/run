@@ -3,6 +3,7 @@
 export LOGFILE="/logs/rclone_mount.log"
 
 exec s6-setuidgid abc /usr/bin/rclone mount rclone-gdrive-union: ${LOCAL_MOUNT} \
---log-level DEBUG --log-file=$LOGFILE \
+--log-level INFO --log-file=$LOGFILE \
 --cache-dir /data/rclone/cache \
+--user-agent "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1" \
 --config /rclone.conf ${RCLONE_MOUNT_OPTIONS}
