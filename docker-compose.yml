@@ -160,7 +160,7 @@ services:
     devices:
       - /dev/fuse
     security_opt:
-      - apparmor:unconfine
+      - apparmor:unconfined
     env_file: .env
     volumes:
       - ./config/rclone:/config
