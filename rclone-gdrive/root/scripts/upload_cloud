@@ -13,7 +13,7 @@ TO=${REMOTE_PATH}
 if find $FROM/* -type f -mmin +${MIN_AGE} | read; then
   echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD STARTED" | tee -a $LOGFILE
   # MOVE FILES OLDER THEN MIN_AGE MINUTES
-  /usr/bin/rclone move $FROM $TO --config /rclone/rclone.conf -P --min-age ${MIN_AGE}m \
+  /usr/bin/rclone move $FROM $TO -P --min-age ${MIN_AGE}m \
     --log-level=INFO --log-file=$LOGFILE \
     --user-agent "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1" \
     ${RCLONE_UPLOAD_OPTIONS}

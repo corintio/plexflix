@@ -1,9 +1,18 @@
 #!/usr/bin/with-contenv sh
 
-# Create rclone's union mountpoint config
-cp $CONFIG_FILE /rclone
-echo "[rclone-gdrive-union]" >> /rclone/rclone.conf
-echo "type = union" >> /rclone/rclone.conf
-echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> /rclone/rclone.conf
+# Saves the configuration to the defaut location, so it is not required to pass the 
+# path on every invocation
+CONFIG_FOLDER=/root/.config/rclone
+RCLONE_CONFIG_FILE=$CONFIG_FOLDER/rclone.conf
 
-chown -R abc:abc /rclone
+# Make sure the folder exists
+mkdir -p $CONFIG_FOLDER
+
+# Create rclone's union mountpoint config
+cp $CONFIG_FILE $RCLONE_CONFIG_FILE
+echo "[rclone-gdrive-union]" >> $RCLONE_CONFIG_FILE
+echo "type = union" >> $RCLONE_CONFIG_FILE
+echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> $RCLONE_CONFIG_FILE
+
+# Give read/search access to all users (not secure, I know...)
+chmod -R +rx /root

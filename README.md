@@ -138,9 +138,8 @@ Remember to remove this override after the app is properly configured, as the po
 be exposed to external access
 
 # To Do
+- Fix Rclone logging
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
-  - Sync backups folder to GDrive: 
-    `rclone sync -c -v --config /config/.rclone.conf --transfers=10 --checkers=20 /data/backups gcrypt:/backups`
   - Auto clean .trash (remove older than 1 month)
   - Docker-GC: https://github.com/spotify/docker-gc
   - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
@@ -150,6 +149,7 @@ be exposed to external access
 - Finish Ansible setup
 - Remove http authentication from Radarr/Sonarr API
 # Future
+- Move Rclone to own project and publish the image in Docker Hub
 - Automate full restore
 - Auto convert magnet links to .torrent files in the watch folder
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
