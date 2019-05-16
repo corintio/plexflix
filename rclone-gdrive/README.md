@@ -8,11 +8,15 @@ Based on
 
 
 ## Usage
+By default, the container expectes a `rclone.conf` file in the `/config` folder. It will fail if 
+the config file is not found. 
+
 
 ### With Docker
 ```
 $ docker build -t rclone . && docker run -it --cap-add SYS_ADMIN --device /dev/fuse \
---security-opt apparmor:unconfined -e REMOTE_PATH=gcrypt: rclone
+--security-opt apparmor:unconfined -e REMOTE_PATH=gcrypt: \
+-v /config:/config -e /logs:/logs /data:/data rclone
 ```
 
 ### With Docker Compose
@@ -31,8 +35,7 @@ services:
     environment:
       - REMOTE_PATH=gcrypt:
     volumes:
-      - ./rclone.conf:/config/rclone.conf
-      - ./logs:/config
+      - ./config:/config
       - ./logs:/logs
       - ./data:/data:shared
     restart: always
