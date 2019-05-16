@@ -1,9 +1,9 @@
 #!/usr/bin/with-contenv sh
 
 # Create rclone's union mountpoint config
-cp $CONFIG_FILE /
-echo "[rclone-gdrive-union]" >> /rclone.conf
-echo "type = union" >> /rclone.conf
-echo "remotes = ${REMOTE_PATH} ${UPLOAD_PATH}" >> /rclone.conf
+cp $CONFIG_FILE /rclone
+echo "[rclone-gdrive-union]" >> /rclone/rclone.conf
+echo "type = union" >> /rclone/rclone.conf
+echo "remotes = ${REMOTE_PATH} ${UPLOAD_PATH}" >> /rclone/rclone.conf
 
-chown abc:abc /rclone.conf
+chown -R abc:abc /rclone
