@@ -148,6 +148,7 @@ be exposed to external access
   Maybe installing Caddy with params? `CADDY_TELEMETRY=on curl https://getcaddy.com | bash -s personal http.cache,http.cgi,http.jwt,http.login,http.realip,tls.dns.cloudflare`
 - Finish Ansible setup
 - Remove http authentication from Radarr/Sonarr API
+
 # Future
 - Move Rclone to own project and publish the image in Docker Hub
 - Automate full restore
