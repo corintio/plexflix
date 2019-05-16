@@ -6,14 +6,8 @@ RUN cp rclone-*-linux-amd64/rclone /usr/bin/ && \
     chown root:root /usr/bin/rclone && \
     chmod 755 /usr/bin/rclone
 
-# RUN wget https://github.com/trapexit/mergerfs/releases/download/2.26.1/mergerfs-static-amd64 \
-#     -O /usr/bin/mergerfs && \
-#     chown root:root /usr/bin/mergerfs && \
-#     chmod 755 /usr/bin/mergerfs
-
 FROM lsiobase/alpine
 COPY --from=builder /usr/bin/rclone /usr/bin/rclone
-# COPY --from=builder /usr/bin/mergerfs /usr/bin/mergerfs
 
 RUN apk add --no-cache --update fuse \
 	&& rm -rf /tmp/* /var/cache/apk/* /var/lib/apk/lists/*
@@ -42,11 +36,5 @@ COPY root/ /
 VOLUME ["/data", "/config", "/logs"]
 
 WORKDIR /rclone
-
-# Use this docker Options in run
-# --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined
-# -v /path/to/config/rclone.conf:/config/rclone.conf
-# -v /data:/data:shared
-
 
 # docker build -t rclone . && docker run -it -e REMOTE_PATH=gcrypt:/test --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined rclone bash

@@ -10,5 +10,4 @@ secrets
 *.log
 docker-compose.override.yml
 
-docker-services
 homescripts

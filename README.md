@@ -11,7 +11,7 @@ apps.
 - Ombi - https://github.com/linuxserver/docker-ombi
 - Jackett - https://github.com/linuxserver/docker-jackett
 - Caddy - https://github.com/lucaslorentz/caddy-docker-proxy
-- Rclone - https://github.com/Mumie-hub/docker-services/tree/master/rclone-mount
+- Rclone - (see folder `rclone-gdrive`)
 - Transmission (+VPN) - https://github.com/haugene/docker-transmission-openvpn
 - Borgmatic - https://github.com/b3vis/docker-borgmatic
 - Watchtower - https://github.com/containrrr/watchtower
