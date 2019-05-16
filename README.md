@@ -75,7 +75,7 @@ apps.
 ## Initial Configuration
 - Create a `.env` file with your configuration (see `.env.sample`)
 - Create a copy of `defaults` folder called `config`
-- Create borgmatic configurations in `config/borgmatic/config.yml` (see the samples)
+- Customize configurations for **rclone** and **borgmatic** (in the config `folder`)
 
 ## Plex
 To be able to configure plex for the first time, add the following to the 
@@ -128,9 +128,6 @@ After starting the app container, you should be able to go to
 http://your.domain.com:9117 and configure Jackett to the correct base path `/jackett`
 
 Apps that require this workaround, and their respective ports that need to be open:
-- Sonarr: 8989
-- Radarr: 7878
-- Tautulli: 8181
 - Jackett: 9117
 - Ombi: 3579
 
