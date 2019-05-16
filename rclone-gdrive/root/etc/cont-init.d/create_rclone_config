@@ -4,6 +4,6 @@
 cp $CONFIG_FILE /rclone
 echo "[rclone-gdrive-union]" >> /rclone/rclone.conf
 echo "type = union" >> /rclone/rclone.conf
-echo "remotes = ${REMOTE_PATH} ${UPLOAD_PATH}" >> /rclone/rclone.conf
+echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> /rclone/rclone.conf
 
 chown -R abc:abc /rclone
