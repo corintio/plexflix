@@ -49,11 +49,15 @@ services:
     container_name: radarr
     env_file: .env
     labels:
-      caddy.address: '${DOMAIN}/radarr'
-      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy.targetport: 7878
-      caddy.targetpath: /radarr
-      caddy.proxy.transparent:
+      caddy_0.address: '${DOMAIN}/radarr'
+      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy_0.targetport: 7878
+      caddy_0.targetpath: /radarr
+      caddy_0.proxy.transparent:
+      caddy_1.address: '${DOMAIN}/radarr/api'
+      caddy_1.targetport: 7878
+      caddy_1.targetpath: /radarr/api
+      caddy_1.proxy.transparent:
     volumes:
       - ./config/radarr:/config
       - ./data:/data:shared
@@ -67,11 +71,15 @@ services:
     container_name: sonarr
     env_file: .env
     labels:
-      caddy.address: '${DOMAIN}/sonarr'
-      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy.targetport: 8989
-      caddy.targetpath: /sonarr
-      caddy.proxy.transparent:
+      caddy_0.address: '${DOMAIN}/sonarr'
+      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
+      caddy_0.targetport: 8989
+      caddy_0.targetpath: /sonarr
+      caddy_0.proxy.transparent:
+      caddy_1.address: '${DOMAIN}/sonarr/api'
+      caddy_1.targetport: 8989
+      caddy_1.targetpath: /sonarr/api
+      caddy_1.proxy.transparent:
     volumes:
       - ./config/sonarr:/config
       - ./data:/data:shared
