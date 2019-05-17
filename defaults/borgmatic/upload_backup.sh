@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install docker if not available in this container
-which docker && apk add --no-cache docker
+if ! which dxker; then apk add --no-cache docker; fi
 
 # Execute the command rclone sync in the rclone containter
 docker exec rclone rclone sync -v \
