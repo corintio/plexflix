@@ -6,14 +6,13 @@ if pidof -o %PPID "upload_cloud"; then
 fi
 
 LOGFILE="/logs/upload_cloud.log"
-MIN_AGE=5
 FROM=${UPLOAD_PATH}
 TO=${REMOTE_PATH}
 
-if find $FROM/* -type f -mmin +${MIN_AGE} | read; then
+if find $FROM/* -type f -mmin +${UPLOAD_DELAY} | read; then
   echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD STARTED" | tee -a $LOGFILE
-  # MOVE FILES OLDER THEN MIN_AGE MINUTES
-  /usr/bin/rclone move $FROM $TO -P --min-age ${MIN_AGE}m  \
+  # MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
+  /usr/bin/rclone move $FROM $TO --min-age ${UPLOAD_DELAY}m  \
   --log-level=INFO ${RCLONE_UPLOAD_OPTIONS} | tee -a $LOGFILE
 
   echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD ENDED" | tee -a $LOGFILE

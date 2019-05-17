@@ -53,6 +53,7 @@ REMOTE_PATH=gcrypt:
 LOCAL_MOUNT=/data/gmedia
 UPLOAD_PATH=/data/upload
 UPLOAD_CRONTAB=* * * * *
+UPLOAD_DELAY=5
 RCLONE_MOUNT_OPTIONS=--allow-other \
     --attr-timeout 10s \
     --dir-cache-time 96h \

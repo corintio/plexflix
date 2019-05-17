@@ -144,6 +144,7 @@ be exposed to external access
 - Replace Basic Auth with Google Authentication oAuth (https://caddyserver.com/docs/http.login)
   Maybe installing Caddy with params? `CADDY_TELEMETRY=on curl https://getcaddy.com | bash -s personal http.cache,http.cgi,http.jwt,http.login,http.realip,tls.dns.cloudflare`
 - Finish Ansible setup
+- Investigate use of hardlinks and moves in Sonarr/Radarr
 
 # Future
 - Move Rclone to own project and publish the image in Docker Hub

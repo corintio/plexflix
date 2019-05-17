@@ -30,7 +30,8 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     --delete-after \
     --drive-chunk-size 32M \
     --delete-empty-src-dirs" \
-    UPLOAD_CRONTAB="* * * * *"
+    UPLOAD_CRONTAB="* * * * *" \
+    UPLOAD_DELAY="5"
 
 COPY root/ /
 
