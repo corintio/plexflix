@@ -73,9 +73,31 @@ apps.
 
 
 ## Initial Configuration
-- Create a `.env` file with your configuration (see `.env.sample`)
-- Create a copy of `defaults` folder called `config`
-- Customize configurations for **rclone** and **borgmatic** (in the config `folder`)
+1. Create a `.env` file with your configuration (see `.env.sample`)
+2. Create a copy of `./defaults` folder called `./config`
+
+You can change some docker configurations (ex: volume paths) by creating a 
+`docker-compose.override.yml`. See [Docker Compose documentation](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) for details 
+
+If you don't want or need one of the service in this project, say transmission for 
+example, just add the following in your override file:
+```
+version: '3.7'
+services:
+   transmission:
+     entrypoint: ["echo", "Service disabled"]
+     restart: "no"
+```
+
+## Rclone
+Create a configuration for Rclone in the `./config/rclone` folder. You need to create a configuration for 
+your remote Goggle Drive with the `gcrypt:` name. If you want a different name, set the 
+`REMOTE_PATH` env var in `.env` with the new value
+
+Make sure Rclone is startign and mounting your remote correctly. To test it, run 
+`docker-compose up --build rclone` and check for any errors. Go to a different terminal and try to 
+access the mountpoint (default: `./data/gmedia`), check if your files are there.
+
 
 ## Plex
 To be able to configure plex for the first time, add the following to the 
@@ -90,6 +112,8 @@ services:
 Remove this override after the plex server is properly configured and claimed, or else 
 the other apps won't be able to communicate with it
 
+After Plex is up and running, change the Transcoding path to `/transcode`
+
 ## Transmission + VPN
 See https://github.com/haugene/docker-transmission-openvpn for details on how to
 configure the VPN access. If you are using a custom VPN, copy your VPN Config 
@@ -97,8 +121,7 @@ to `/config/vpn`
 
 ## Borgmatic (backup)
 Before borgmatic can do its magic, you need to create a new borg repository. Make sure 
-to set your password in `/config/borgmatic/config.yml` first (see "Configure your 
-environment" above)
+to set your password in `/config/borgmatic/config.yml` first
 
 To simplify access to your backups, create the following aliases in our `.bashrc`:
 ```
