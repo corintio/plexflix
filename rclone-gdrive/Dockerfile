@@ -23,8 +23,9 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     --timeout 2h \
     --umask 002" \
     RCLONE_UPLOAD_OPTIONS="-c \
-    --transfers=10 \
-    --checkers=10 \
+    --transfers 3 \
+    --checkers 3 \
+    --tpslimit 3 \
     --no-traverse \
     --delete-after \
     --drive-chunk-size 32M \
