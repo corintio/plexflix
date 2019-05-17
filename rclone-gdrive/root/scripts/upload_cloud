@@ -9,11 +9,12 @@ LOGFILE="/logs/upload_cloud.log"
 FROM=${UPLOAD_PATH}
 TO=${REMOTE_PATH}
 
-if find $FROM/* -type f -mmin +${UPLOAD_DELAY} | read; then
+# MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
+if find $FROM -type f -mmin +${UPLOAD_DELAY} | read; then
   echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD STARTED" | tee -a $LOGFILE
-  # MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
+
   /usr/bin/rclone move $FROM $TO --min-age ${UPLOAD_DELAY}m  \
-  --log-level=INFO ${RCLONE_UPLOAD_OPTIONS} | tee -a $LOGFILE
+  -v ${RCLONE_UPLOAD_OPTIONS} | tee -a $LOGFILE
 
   echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD ENDED" | tee -a $LOGFILE
 fi
