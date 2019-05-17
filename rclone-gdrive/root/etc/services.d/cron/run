@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv sh
 
-echo "${UPLOAD_CRONTAB} /usr/bin/with-contenv sh -c '/scripts/upload_cloud >/dev/null 2>&1'" | crontab -u abc -
+echo "${UPLOAD_CRONTAB} /usr/bin/with-contenv sh -c '/scripts/upload_cloud'" | crontab -u abc -
 exec /usr/sbin/crond -f -l 8 -L /logs/cron.log

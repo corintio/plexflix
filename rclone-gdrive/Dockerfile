@@ -37,5 +37,6 @@ COPY root/ /
 VOLUME ["/data", "/config", "/logs"]
 
 WORKDIR /rclone
+RUN usermod -d /rclone abc
 
 # docker build -t rclone . && docker run -it -e REMOTE_PATH=gcrypt:/test --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined rclone bash

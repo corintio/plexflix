@@ -2,7 +2,7 @@
 
 # Saves the configuration to the defaut location, so it is not required to pass the 
 # path on every invocation
-CONFIG_FOLDER=/rclone
+CONFIG_FOLDER=/rclone/.config/rclone
 RCLONE_CONFIG_FILE=$CONFIG_FOLDER/rclone.conf
 mkdir -p $CONFIG_FOLDER
 
@@ -12,5 +12,9 @@ echo "[rclone-gdrive-union]" >> $RCLONE_CONFIG_FILE
 echo "type = union" >> $RCLONE_CONFIG_FILE
 echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> $RCLONE_CONFIG_FILE
 
-# Give read/search access to all users (not secure, I know...)
 chown -R abc:abc $CONFIG_FOLDER
+
+# Link the config to root's home, so rclone can be called as root as well 
+# without specifying the config path
+mkdir -p /root/.config
+ln -sf $CONFIG_FOLDER /root/.config

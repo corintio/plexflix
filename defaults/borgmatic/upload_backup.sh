@@ -5,7 +5,6 @@ if ! which dxker; then apk add --no-cache docker; fi
 
 # Execute the command rclone sync in the rclone containter
 docker exec rclone rclone sync -v \
-    --config /rclone/rclone.conf \
     --checksum \
     --transfers 3 \
     --checkers 3 \
