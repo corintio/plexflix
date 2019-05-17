@@ -17,9 +17,9 @@ location:
         - /mnt/repository
     one_file_system: true
     exclude_patterns:
-        - '/**/radarr/MediaCover/*'
-        - '/**/sonarr/MediaCover/*'
-        - '/**/tautulli/backups/*'
+        - '/**/MediaCover/*'
+        - '/**/Backups/*'
+        - '/**/backups/*'
         - '/**/cache/*'
         - '/**/logs/*'
         
