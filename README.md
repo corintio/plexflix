@@ -11,7 +11,7 @@ apps.
 - Ombi - https://github.com/linuxserver/docker-ombi
 - Jackett - https://github.com/linuxserver/docker-jackett
 - Caddy - https://github.com/lucaslorentz/caddy-docker-proxy
-- Rclone - (see folder `rclone-gdrive`)
+- Rclone - [Sub project `rclone-gdrive`](rclone-gdrive)
 - Transmission (+VPN) - https://github.com/haugene/docker-transmission-openvpn
 - Borgmatic - https://github.com/b3vis/docker-borgmatic
 - Watchtower - https://github.com/containrrr/watchtower
@@ -31,9 +31,9 @@ apps.
 - Google Drive account
 
 # Folder structure
-
+Important files and folders:
 ```
-.
+plexflix
 ├── .env                           - Environment configuration (options, servers, etc..)
 ├── docker-compose.yml             - Main Compose services configuration. Don't change!
 ├── docker-compose.override.yml    - Compose overrides. Add customizations here
@@ -42,7 +42,7 @@ apps.
 │   │   ├── config.yml             - Borgmatic backup configuration
 │   │   └── crontab.txt            - Schedule for backup
 │   ├── rclone            
-│   │   └── .rclone.conf           - Configuration for rclone's remotes
+│   │   └── rclone.conf            - Configuration for rclone's remotes
 │   ├── plex
 │   ├── sonarr            
 │   ├── radarr            
@@ -61,22 +61,33 @@ apps.
 1. Create a user, preferable with uid=1000/gid=1000 (if not, change these values in 
    the `.env` file)
 2. Login with the newly created user
-3. Install Docker
+3. Install Docker:
     ```
     sudo curl -L https://get.docker.com | bash
     sudo usermod -aG docker $USER
     ```
-4. Install Docker Compose
+4. Install Docker Compose (requires Python):
     ```
     pip install docker-compose
     ```
+5. Clone this repo:
+    ```
+    git clone https://github.com/corintio/plexflix
+    cd plexflix
+    ```
+
+NOTE: From now on all steps and examples bellow assume you are in the project folder.
+
+That's all you need to install. All required software (i.e. Plex, Sonarr, etc..) will be 
+download and installed by Docker. But before starting all apps, **you must complete the 
+initial configuration**.
 
 
 ## Initial Configuration
 1. Create a `.env` file with your configuration (see `.env.sample`)
 2. Create a copy of `./defaults` folder called `./config`
 
-You can change some docker configurations (ex: volume paths) by creating a 
+You can change some Docker configurations (ex: volume paths) by creating a 
 `docker-compose.override.yml`. See [Docker Compose documentation](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) for details 
 
 If you don't want or need one of the service in this project, say transmission for 
@@ -90,29 +101,24 @@ services:
 ```
 
 ## Rclone
-Create a configuration for Rclone in the `./config/rclone` folder. You need to create a configuration for 
-your remote Goggle Drive with the `gcrypt:` name. If you want a different name, set the 
-`REMOTE_PATH` env var in `.env` with the new value
+Create a configuration for Rclone in the `./config/rclone` folder. You need to create a 
+configuration for your remote Goggle Drive with the `gcrypt:` name. If you want a 
+different name, set the `REMOTE_PATH` env var in `.env` with the new value
 
-Make sure Rclone is startign and mounting your remote correctly. To test it, run 
-`docker-compose up --build rclone` and check for any errors. Go to a different terminal and try to 
-access the mountpoint (default: `./data/gmedia`), check if your files are there.
+Make sure Rclone is starting and mounting your remote correctly. To test it, run 
+`docker-compose up --build rclone` and check for any errors. Go to a different terminal 
+and try to access the mountpoint (default: `./data/gmedia`), check if your files are 
+there.
 
 
 ## Plex
-To be able to configure plex for the first time, add the following to the 
-`docker-compose.override.yml`:
-```
----
-version: '3.7'
-services:
-  plex:
-    network_mode: host
-```
-Remove this override after the plex server is properly configured and claimed, or else 
-the other apps won't be able to communicate with it
+Start Plex with `docker-compose up plex`, go to http://your_ip:32400/web and follow the 
+instructions. If you are installing in a remote server (different network), please follow
+[these instructions](https://support.plex.tv/articles/200288586-installation/#toc-2) 
+(see "On a Different Network" section).
 
-After Plex is up and running, change the Transcoding path to `/transcode`
+After Plex is up and running, change the Transcoding path to `/transcode`, so it uses a 
+RAM disk to do the transcoding, which is much faster and less of a toll to your HDD/SDD
 
 ## Transmission + VPN
 See https://github.com/haugene/docker-transmission-openvpn for details on how to
@@ -135,9 +141,13 @@ borgmatic --init --encryption repokey-blake2
 ```
 
 ## Other apps
-Most applications need to be configured before being able to be properly proxied (ex: 
-add base path). To be able to do it, create a `docker-compose.override.yml` exposing the 
-ports for the app. Ex:
+
+### Initial BasePath configuration
+Some of the applications in this project need to be configured before being able to be 
+properly proxied (ex: add base path). To be able to do these configurations, create a 
+`docker-compose.override.yml` exposing the ports for the app. 
+
+Example: Jackett
 ```
 ---
 version: '3.7'
