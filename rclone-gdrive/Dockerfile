@@ -12,6 +12,7 @@ COPY --from=builder /usr/bin/rclone /usr/bin/rclone
 RUN apk add --no-cache --update fuse \
 	&& rm -rf /tmp/* /var/cache/apk/* /var/lib/apk/lists/*
 
+# Default environment variables
 ENV CONFIG_FILE="/config/rclone.conf" \
     REMOTE_PATH="gcrypt:" \
     UPLOAD_PATH="/data/upload" \
@@ -38,7 +39,9 @@ COPY root/ /
 
 VOLUME ["/data", "/config", "/logs"]
 
+# Change home folder
 WORKDIR /rclone
 RUN usermod -d /rclone abc
+RUN chown -R abc:abc /rclone
 
 # docker build -t rclone . && docker run -it -e REMOTE_PATH=gcrypt:/test --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined rclone bash
