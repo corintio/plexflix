@@ -1,7 +1,11 @@
 #!/usr/bin/with-contenv sh
 
+log() {
+  echo "$(date "+%Y/%m/%d %T") $*" | tee -a $LOGFILE
+}
+
 if pidof -o %PPID "upload_cloud"; then
-  echo "Already running." | tee -a $LOGFILE
+  log "RCLONE UPLOAD IN PROGRESS"
   exit 1
 fi
 
@@ -11,10 +15,15 @@ TO=${REMOTE_PATH}
 
 # MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
 if find $FROM -type f -mmin +${UPLOAD_DELAY} | read; then
-  echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD STARTED" | tee -a $LOGFILE
+  log "RCLONE UPLOAD STARTED"
+
+  # Add excludes flag if excludes file is present in config
+  if [ -f /config/excludes ]; then
+    EXCLUDES="--exclude-from /config/excludes "
+  fi
 
   /usr/bin/rclone move $FROM $TO --min-age ${UPLOAD_DELAY}m  \
-  -v ${RCLONE_UPLOAD_OPTIONS} 2>&1 | tee -a $LOGFILE
+    ${EXCLUDES} ${RCLONE_UPLOAD_OPTIONS} 2>&1 | tee -a $LOGFILE
 
-  echo "$(date "+%d.%m.%Y %T") RCLONE UPLOAD ENDED" | tee -a $LOGFILE
+  log "RCLONE UPLOAD ENDED"
 fi

@@ -16,6 +16,7 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     REMOTE_PATH="gcrypt:" \
     UPLOAD_PATH="/data/upload" \
     LOCAL_MOUNT="/data/gmedia" \
+    RCLONE_LOG_LEVEL="INFO" \
     RCLONE_MOUNT_OPTIONS="--allow-other \
     --attr-timeout 10s \
     --dir-cache-time 96h \

@@ -42,16 +42,17 @@ plexflix
 │   │   ├── config.yml             - Borgmatic backup configuration
 │   │   └── crontab.txt            - Schedule for backup
 │   ├── rclone            
-│   │   └── rclone.conf            - Configuration for rclone's remotes
+│   │   ├── rclone.conf            - Configuration for rclone's remotes
+│   │   └── excludes               - List of files that should not be uploaded to Google Drive
 │   ├── plex
 │   ├── sonarr            
 │   ├── radarr            
-│   ├── ...               
+│   └── ...               
 ├── data                  
 │   ├── gmedia                     - This is where your media will be mounted from GDrive
 │   ├── backups                    - Folder that store the daily backups
 │   ├── downloads                  - Used by transmission for downloads
-│   ├── ...               
+│   └── ...               
 └── logs                           - Logs for most apps
 ```
 
@@ -76,7 +77,7 @@ plexflix
     cd plexflix
     ```
 
-NOTE: From now on all steps and examples bellow assume you are in the project folder.
+NOTE: All steps and examples bellow assume you are in the project folder.
 
 That's all you need to install. All required software (i.e. Plex, Sonarr, etc..) will be 
 download and installed by Docker. But before starting all apps, **you must complete the 

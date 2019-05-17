@@ -12,20 +12,3 @@ filename_encryption = standard
 directory_name_encryption = true
 password = <PASSWORD>
 password2 = <PASSWORD>
-
-[gcache]
-type = cache
-remote = gd:media
-chunk_size = 5M
-chunk_total_size = 600G
-info_age = 168h
-workers = 8
-tmp_wait_time = 10m
-
-[gmedia]
-type = crypt
-remote = gcache:
-filename_encryption = standard
-directory_name_encryption = true
-password = <PASSWORD>
-password2 = <PASSWORD>

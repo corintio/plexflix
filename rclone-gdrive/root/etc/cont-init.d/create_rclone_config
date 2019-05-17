@@ -8,6 +8,8 @@ mkdir -p $CONFIG_FOLDER
 
 # Create rclone's union mountpoint config
 cp $CONFIG_FILE $RCLONE_CONFIG_FILE
+echo >> $RCLONE_CONFIG_FILE
+echo >> $RCLONE_CONFIG_FILE
 echo "[rclone-gdrive-union]" >> $RCLONE_CONFIG_FILE
 echo "type = union" >> $RCLONE_CONFIG_FILE
 echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> $RCLONE_CONFIG_FILE

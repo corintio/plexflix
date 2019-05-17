@@ -67,4 +67,5 @@ RCLONE_UPLOAD_OPTIONS=-c \
     --delete-after \
     --drive-chunk-size 32M \
     --delete-empty-src-dirs
+RCLONE_LOG_LEVEL=INFO
 ```

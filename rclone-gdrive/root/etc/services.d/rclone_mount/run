@@ -3,6 +3,4 @@
 LOGFILE="/logs/rclone_mount.log"
 
 exec s6-setuidgid abc /usr/bin/rclone mount rclone-gdrive-union: ${LOCAL_MOUNT} \
---log-level INFO \
---cache-dir /data/rclone/cache \
-${RCLONE_MOUNT_OPTIONS}
+    --cache-dir /data/rclone/cache ${RCLONE_MOUNT_OPTIONS}
