@@ -2,10 +2,8 @@
 
 # Saves the configuration to the defaut location, so it is not required to pass the 
 # path on every invocation
-CONFIG_FOLDER=/root/.config/rclone
+CONFIG_FOLDER=/rclone
 RCLONE_CONFIG_FILE=$CONFIG_FOLDER/rclone.conf
-
-# Make sure the folder exists
 mkdir -p $CONFIG_FOLDER
 
 # Create rclone's union mountpoint config
@@ -15,4 +13,4 @@ echo "type = union" >> $RCLONE_CONFIG_FILE
 echo "remotes = \"${REMOTE_PATH}\" \"${UPLOAD_PATH}\"" >> $RCLONE_CONFIG_FILE
 
 # Give read/search access to all users (not secure, I know...)
-chmod -R +rx /root
+chown -R abc:abc $CONFIG_FOLDER
