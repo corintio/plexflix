@@ -1,6 +1,5 @@
 *.code-workspace
 .vagrant
-caddy
 .env
 config
 data
