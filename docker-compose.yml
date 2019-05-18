@@ -35,8 +35,6 @@ services:
       caddy.targetport: 9091
       caddy.targetpath: /transmission
       caddy.proxy.transparent:
-      caddy.jwt.path: /
-      caddy.jwt.redirect: /login?backTo=/transmission/web/index.html
     dns:
       - 8.8.8.8
       - 8.8.4.4
