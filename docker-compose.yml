@@ -2,9 +2,8 @@
 version: '3.7'
 services:
   caddy:
-    image: alpine
+    build: caddy
     container_name: caddy
-    entrypoint: /start.sh
     ports:
       - 80:80
       - 443:443
@@ -15,12 +14,13 @@ services:
       caddy: '${DOMAIN}'
       caddy.tls.dns: '${TLS_DNS_PROVIDER}'
       caddy.log: /var/log/access.log
+      caddy.login.redirect_check_referer: false
+      caddy.login.redirect_host_file: /root/.caddy/redirect_hosts.txt
+      caddy.login.htpasswd: file=/root/.caddy/.htpasswd
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config/caddy:/root/.caddy
       - ./logs/caddy:/var/log
-      - ./config/caddy/start.sh:/start.sh
-      - ./data/caddy:/data      
     restart: always
 
   transmission:
@@ -32,10 +32,11 @@ services:
       - /dev/net/tun
     labels:
       caddy.address: '${DOMAIN}/transmission'
-      caddy.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
       caddy.targetport: 9091
       caddy.targetpath: /transmission
       caddy.proxy.transparent:
+      caddy.jwt.path: /
+      caddy.jwt.redirect: /login?backTo=/transmission/web/index.html
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -52,15 +53,13 @@ services:
     container_name: radarr
     env_file: .env
     labels:
-      caddy_0.address: '${DOMAIN}/radarr'
-      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy_0.targetport: 7878
-      caddy_0.targetpath: /radarr
-      caddy_0.proxy.transparent:
-      caddy_1.address: '${DOMAIN}/radarr/api'
-      caddy_1.targetport: 7878
-      caddy_1.targetpath: /radarr/api
-      caddy_1.proxy.transparent:
+      caddy.address: '${DOMAIN}/radarr'
+      caddy.targetport: 7878
+      caddy.targetpath: /radarr
+      caddy.proxy.transparent:
+      caddy.jwt.path: /
+      caddy.jwt.redirect: /login?backTo=/radarr
+      caddy.jwt.except: /api
     volumes:
       - ./config/radarr:/config
       - ./data:/data:shared
@@ -74,15 +73,13 @@ services:
     container_name: sonarr
     env_file: .env
     labels:
-      caddy_0.address: '${DOMAIN}/sonarr'
-      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy_0.targetport: 8989
-      caddy_0.targetpath: /sonarr
-      caddy_0.proxy.transparent:
-      caddy_1.address: '${DOMAIN}/sonarr/api'
-      caddy_1.targetport: 8989
-      caddy_1.targetpath: /sonarr/api
-      caddy_1.proxy.transparent:
+      caddy.address: '${DOMAIN}/sonarr'
+      caddy.targetport: 8989
+      caddy.targetpath: /sonarr
+      caddy.proxy.transparent:
+      caddy.jwt.path: /
+      caddy.jwt.redirect: /login?backTo=/sonarr
+      caddy.jwt.except: /api
     volumes:
       - ./config/sonarr:/config
       - ./data:/data:shared
@@ -96,15 +93,13 @@ services:
     container_name: jackett
     env_file: .env
     labels:
-      caddy_0.address: '${DOMAIN}/jackett'
-      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy_0.targetport: 9117
-      caddy_0.targetpath: /jackett
-      caddy_0.proxy.transparent:
-      caddy_1.address: '${DOMAIN}/jackett/api'
-      caddy_1.targetport: 9117
-      caddy_1.targetpath: /jackett/api
-      caddy_1.proxy.transparent:
+      caddy.address: '${DOMAIN}/jackett'
+      caddy.targetport: 9117
+      caddy.targetpath: /jackett
+      caddy.proxy.transparent:
+      caddy.jwt.path: /
+      caddy.jwt.redirect: /login?backTo=/jackett
+      caddy.jwt.except: /api
     volumes:
       - ./config/jackett:/config/Jackett
       - ./data/downloads/watch:/downloads
@@ -147,15 +142,13 @@ services:
     image: linuxserver/tautulli
     container_name: tautulli
     labels:
-      caddy_0.address: '${DOMAIN}/tautulli'
-      caddy_0.basicauth: '/ ${AUTH_USER} ${AUTH_PASSWD}'
-      caddy_0.targetport: 8181
-      caddy_0.targetpath: /tautulli
-      caddy_0.proxy.transparent:
-      caddy_1.address: '${DOMAIN}/tautulli/api'
-      caddy_1.targetport: 8181
-      caddy_1.targetpath: /tautulli/api
-      caddy_1.proxy.transparent:
+      caddy.address: '${DOMAIN}/tautulli'
+      caddy.targetport: 8181
+      caddy.targetpath: /tautulli
+      caddy.proxy.transparent:
+      caddy.jwt.path: /
+      caddy.jwt.redirect: /login?backTo=/tautulli
+      caddy.jwt.except: /api
     env_file: .env
     volumes:
       - ./config/tautulli:/config

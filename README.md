@@ -101,6 +101,9 @@ services:
      restart: "no"
 ```
 
+## Caddy
+TODO
+
 ## Rclone
 Create a configuration for Rclone in the `./config/rclone` folder. You need to create a 
 configuration for your remote Goggle Drive with the `gcrypt:` name. If you want a 
