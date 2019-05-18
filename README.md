@@ -102,7 +102,10 @@ services:
 ```
 
 ## Caddy
-TODO
+```
+htpasswd -B -C 15 -c ./config/caddy/.htpasswd username
+echo "your.domain.com" > ./config/caddy/redirect_hosts.txt
+```
 
 ## Rclone
 Create a configuration for Rclone in the `./config/rclone` folder. You need to create a 
