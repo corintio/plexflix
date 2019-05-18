@@ -127,10 +127,7 @@ services:
       - ./config/plex:/config
       - ./logs/plex:/config/Library/Application Support/Plex Media Server/Logs
       - ./data:/data:shared
-      - type: tmpfs
-        target: /transcode
-        tmpfs:
-          size: '4g'      
+    tmpfs: /transcode
     network_mode: host
     depends_on:
       - rclone
