@@ -2,8 +2,9 @@
 version: '3.7'
 services:
   caddy:
-    image: lucaslorentz/caddy-docker-proxy
+    image: alpine
     container_name: caddy
+    entrypoint: /start.sh
     ports:
       - 80:80
       - 443:443
@@ -18,6 +19,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config/caddy:/root/.caddy
       - ./logs/caddy:/var/log
+      - ./config/caddy/start.sh:/start.sh
+      - ./data/caddy:/data      
     restart: always
 
   transmission:

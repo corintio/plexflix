@@ -10,7 +10,7 @@ apps.
 - Tautulli - https://github.com/linuxserver/docker-tautulli
 - Ombi - https://github.com/linuxserver/docker-ombi
 - Jackett - https://github.com/linuxserver/docker-jackett
-- Caddy - https://github.com/lucaslorentz/caddy-docker-proxy
+- Caddy+Docker plugin - https://github.com/lucaslorentz/caddy-docker-proxy
 - Rclone - [Sub project `rclone-gdrive`](rclone-gdrive)
 - Transmission (+VPN) - https://github.com/haugene/docker-transmission-openvpn
 - Borgmatic - https://github.com/b3vis/docker-borgmatic
