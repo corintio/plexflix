@@ -175,7 +175,8 @@ Remember to remove this override after the app is properly configured, as the po
 be exposed to external access
 
 # To Do
-- Fix Rclone logging
+- ~~Fix Rclone logging~~
+- Expose Plex through port 80/443
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Auto clean .trash (remove older than 1 month)
   - Docker-GC: https://github.com/spotify/docker-gc

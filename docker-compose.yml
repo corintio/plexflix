@@ -128,7 +128,9 @@ services:
       - ./logs/plex:/config/Library/Application Support/Plex Media Server/Logs
       - ./data:/data:shared
     tmpfs: /transcode
-    network_mode: host
+    ports:
+      - 32400:32400
+    # network_mode: host
     depends_on:
       - rclone
     restart: unless-stopped
@@ -167,31 +169,12 @@ services:
       - ./data:/data:shared
     restart: always
 
-# rclone:
-  #   image: mumiehub/rclone-mount
-  #   container_name: rclone
-  #   cap_add:
-  #     - SYS_ADMIN
-  #   devices:
-  #     - /dev/fuse
-  #   security_opt:
-  #     - apparmor:unconfine
-  #   env_file: .env
-  #   environment:
-  #     - "RemotePath=gmedia:"
-  #   volumes:
-  #     - ./config/rclone:/config
-  #     - ./data/gmedia/:/mnt/mediaefs:shared
-  #     - ./data:/data
-  #   restart: always
-
   portainer:
     image: portainer/portainer
     container_name: portainer
     labels:
-      caddy.address: '${DOMAIN}'
-      caddy.redir: '/portainer /portainer/'
-      caddy.proxy: '/portainer/ portainer:9000'
+      caddy.address: '${DOMAIN}/portainer'
+      caddy.proxy: '/ portainer:9000'
       caddy.proxy.without: /portainer
       caddy.proxy.transparent:
       caddy.proxy.websocket:
