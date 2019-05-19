@@ -128,9 +128,9 @@ services:
       - ./logs/plex:/config/Library/Application Support/Plex Media Server/Logs
       - ./data:/data:shared
     tmpfs: /transcode
-    ports:
-      - 32400:32400
-    # network_mode: host
+    # ports:
+    #   - 32400:32400
+    network_mode: host
     depends_on:
       - rclone
     restart: unless-stopped
