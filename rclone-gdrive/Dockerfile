@@ -6,8 +6,12 @@ RUN cp rclone-*-linux-amd64/rclone /usr/bin/ && \
     chown root:root /usr/bin/rclone && \
     chmod 755 /usr/bin/rclone
 
+RUN wget -O /usr/bin/mergerfs https://github.com/trapexit/mergerfs/releases/download/2.26.2/mergerfs-static-amd64
+RUN chmod +x /usr/bin/mergerfs
+
 FROM lsiobase/alpine
-COPY --from=builder /usr/bin/rclone /usr/bin/rclone
+COPY --from=builder /usr/bin/rclone /usr/bin
+COPY --from=builder /usr/bin/mergerfs /usr/bin
 
 RUN apk add --no-cache --update fuse \
 	&& rm -rf /tmp/* /var/cache/apk/* /var/lib/apk/lists/*
@@ -15,6 +19,7 @@ RUN apk add --no-cache --update fuse \
 # Default environment variables
 ENV CONFIG_FILE="/config/rclone.conf" \
     REMOTE_PATH="gcrypt:" \
+    REMOTE_MOUNT="/GD" \
     UPLOAD_PATH="/data/upload" \
     LOCAL_MOUNT="/data/gmedia" \
     RCLONE_LOG_LEVEL="INFO" \

@@ -2,7 +2,7 @@ alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/doc
 alias ddc='cd ~/plexflix && docker-compose'
 alias borgmatic='ddc run --rm  borgmatic borgmatic'
 alias borg='ddc run --rm borgmatic borg'
-alias logerr='ddc logs -f -t --tail=1 | egrep -i "(warn|error)"'
+alias logerr='ddc logs -f -t --tail=1 | egrep -i "(warn|error|fail)"'
 alias rclone='ddc exec rclone rclone'
 alias up='ddc up -d --build'
 alias wls='f() { watch -d -c ls -l --color \"$@\"; }; f'

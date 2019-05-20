@@ -4,5 +4,5 @@ cd /logs
 touch cron.log rclone_mount.log upload_cloud.log
 chown -R abc:abc /logs
 
-s6-setuidgid abc mkdir -p ${UPLOAD_PATH}
-s6-setuidgid abc mkdir -p ${LOCAL_MOUNT}
+mkdir -p ${UPLOAD_PATH} ${LOCAL_MOUNT} ${REMOTE_MOUNT}
+chown abc:abc ${UPLOAD_PATH} ${LOCAL_MOUNT} ${REMOTE_MOUNT}

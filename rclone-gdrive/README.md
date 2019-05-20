@@ -50,6 +50,7 @@ services:
 ```
 CONFIG_FILE=/config/rclone.conf
 REMOTE_PATH=gcrypt:
+REMOTE_MOUNT=/GD
 LOCAL_MOUNT=/data/gmedia
 UPLOAD_PATH=/data/upload
 UPLOAD_CRONTAB=* * * * *

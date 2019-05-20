@@ -176,6 +176,7 @@ be exposed to external access
 
 # To Do
 - ~~Fix Rclone logging~~
+- Use mergerfs in rclone container
 - Expose Plex through port 80/443
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Auto clean .trash (remove older than 1 month)
@@ -194,3 +195,5 @@ be exposed to external access
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
 - Cockpit https://cockpit-project.org/
 - Investigate qBittorrent+SOCKS5
+- More info in PlexBar (vnstat, upload_queue, load average, disk usage, real mem, 
+  recent errors, gdrive quota, sensors)
