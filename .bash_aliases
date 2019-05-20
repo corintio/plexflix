@@ -1,3 +1,15 @@
+queue_length() {
+    find ~/plexflix/data/local -type f | grep -v downloads | wc -l
+}
+queue_size() {
+    du -sh ~/plexflix/data/local --exclude ~/plexflix/data/local/downloads | cut -f1
+}
+upload_queue() {
+    echo "Upload Queue: $(queue_length) files, $(queue_size)"
+}
+export -f upload_queue queue_length queue_size
+alias queue_info='watch -t -n 10 -d -x bash -c "upload_queue"'
+
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 alias ddc='cd ~/plexflix && docker-compose'
 alias borgmatic='ddc run --rm  borgmatic borgmatic'
@@ -6,4 +18,3 @@ alias logerr='ddc logs -f -t --tail=1 | egrep -i "(warn|error|fail)"'
 alias rclone='ddc exec rclone rclone'
 alias up='ddc up -d --build'
 alias wls='f() { watch -d -c ls -l --color \"$@\"; }; f'
-alias upload_queue='watch -t -n 10 -d -- echo "Upload Queue: \`find ~/plexflix/data/upload -type f  | wc -l\` files, \`du -sh ~/plexflix/data/upload | cut -f1 \`"'
