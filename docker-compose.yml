@@ -41,7 +41,7 @@ services:
     volumes:
       - ./config/transmission:/config
       - ./localtime:/etc/localtime:ro
-      - ./data/downloads/:/data
+      - ./data/local/downloads/:/data
       - ./config/vpn:/etc/openvpn/custom
     env_file: .env
     restart: unless-stopped

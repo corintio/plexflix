@@ -14,7 +14,7 @@ if pidof -o %PPID "upload_cloud"; then
 fi
 
 # MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
-if find $FROM -type f -mmin +${UPLOAD_DELAY} | read; then
+if find $FROM -type f -mmin +${UPLOAD_DELAY} | grep -v downloads | read; then
   log "RCLONE UPLOAD STARTED"
 
   # Add excludes flag if excludes file is present in config
