@@ -100,7 +100,7 @@ services:
       caddy.jwt.except: /api
     volumes:
       - ./config/jackett:/config/Jackett
-      - ./data/downloads/watch:/downloads
+      - ./data/local/downloads/watch:/downloads
     restart: unless-stopped
 
   ombi:
