@@ -3,8 +3,7 @@
 trap "fusermount -uz ${LOCAL_MOUNT}" EXIT
 
 fusermount -uz ${LOCAL_MOUNT} || :
-mergerfs -o minfreespace=1G,defaults,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff \
-    ${UPLOAD_PATH}:${REMOTE_MOUNT}  ${LOCAL_MOUNT}
+mergerfs {MERGERFS_OPTIONS} ${UPLOAD_PATH}:${REMOTE_MOUNT}  ${LOCAL_MOUNT}
 
 exec s6-setuidgid abc /usr/bin/rclone mount ${REMOTE_PATH} ${REMOTE_MOUNT} \
     --cache-dir /data/rclone/cache ${RCLONE_MOUNT_OPTIONS}

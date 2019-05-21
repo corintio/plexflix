@@ -37,6 +37,7 @@ ENV CONFIG_FILE="/config/rclone.conf" \
     --delete-after \
     --drive-chunk-size 32M \
     --delete-empty-src-dirs" \
+    MERGERFS_OPTIONS="-o defaults,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff" \
     UPLOAD_CRONTAB="* * * * *" \
     UPLOAD_DELAY="5"
 
