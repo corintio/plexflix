@@ -27,8 +27,8 @@ apps.
 - Automatic update of docker images using watchtower
 
 ### Requirements:
-- VPN account
 - Google Drive account
+- VPN account
 
 # Folder structure
 Important files and folders:
@@ -50,8 +50,9 @@ plexflix
 │   └── ...               
 ├── data                  
 │   ├── gmedia                     - This is where your media will be mounted from GDrive
+│   ├── local                      - New files are staged here before being uploaded
+│   │   └── downloads              - Used by transmission for downloads
 │   ├── backups                    - Folder that store the daily backups
-│   ├── downloads                  - Used by transmission for downloads
 │   └── ...               
 └── logs                           - Logs for most apps
 ```
@@ -176,7 +177,8 @@ be exposed to external access
 
 # To Do
 - ~~Fix Rclone logging~~
-- Use mergerfs in rclone container
+- ~~Use mergerfs in rclone container~~
+- Use Plex Autoscan: https://github.com/l3uddz/plex_autoscan/
 - Expose Plex through port 80/443
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Auto clean .trash (remove older than 1 month)
