@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+# Make sure we unmount all folders before exiting.
+fusermount -uz ${LOCAL_MOUNT} || :
+fusermount -uz ${REMOTE_MOUNT} || :

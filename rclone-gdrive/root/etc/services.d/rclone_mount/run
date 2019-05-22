@@ -1,8 +1,11 @@
 #!/usr/bin/with-contenv sh
 
-trap "fusermount -uz ${LOCAL_MOUNT}" EXIT
+function unmount_all {
+    fusermount -uz ${LOCAL_MOUNT} || :
+    fusermount -uz ${REMOTE_MOUNT} || :
+}
+unmount_all 2> /dev/null
 
-fusermount -uz ${LOCAL_MOUNT} || :
 mergerfs ${MERGERFS_OPTIONS} ${UPLOAD_PATH}:${REMOTE_MOUNT}  ${LOCAL_MOUNT}
 
 exec /usr/bin/rclone mount --uid $PUID --gid $PGID ${REMOTE_PATH} ${REMOTE_MOUNT} \
