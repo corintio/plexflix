@@ -1,13 +1,13 @@
 FROM alpine AS builder
 
-RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip
-RUN unzip rclone-current-linux-amd64.zip
-RUN cp rclone-*-linux-amd64/rclone /usr/bin/ && \
+RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
+    unzip rclone-current-linux-amd64.zip && \
+    cp rclone-*-linux-amd64/rclone /usr/bin/ && \
     chown root:root /usr/bin/rclone && \
     chmod 755 /usr/bin/rclone
 
-RUN wget -O /usr/bin/mergerfs https://github.com/trapexit/mergerfs/releases/download/2.26.2/mergerfs-static-amd64
-RUN chmod +x /usr/bin/mergerfs
+RUN wget -O /usr/bin/mergerfs https://github.com/trapexit/mergerfs/releases/download/2.26.2/mergerfs-static-amd64 && \
+    chmod +x /usr/bin/mergerfs
 
 FROM lsiobase/alpine
 COPY --from=builder /usr/bin/rclone /usr/bin
@@ -49,5 +49,3 @@ VOLUME ["/data", "/config", "/logs"]
 WORKDIR /rclone
 RUN usermod -d /rclone abc
 RUN chown -R abc:abc /rclone
-
-# docker build -t rclone . && docker run -it -e REMOTE_PATH=gcrypt:/test --cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor:unconfined rclone bash
