@@ -1,15 +1,6 @@
 #!/usr/bin/with-contenv sh
 
-# Saves the configuration to the defaut location, so it is not required to pass the 
+# Saves a copy of the configuration to the defaut location, so it is not required to pass the 
 # path on every invocation
-HOME=/rclone
-CONFIG_FOLDER=${HOME}/.config/rclone
-RCLONE_CONFIG_FILE=$CONFIG_FOLDER/rclone.conf
-mkdir -p $CONFIG_FOLDER
-cp $CONFIG_FILE $RCLONE_CONFIG_FILE
-chown -R abc:abc $HOME
-
-# Link the config to root's home, so rclone can be called as root as well 
-# without specifying the config path
-mkdir -p /root/.config
-ln -sf $CONFIG_FOLDER /root/.config
+mkdir -p /root/.config/rclone
+cp $CONFIG_FILE /root/.config/rclone

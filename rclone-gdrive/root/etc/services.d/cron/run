@@ -1,10 +1,7 @@
 #!/usr/bin/with-contenv sh
 
-# Create a crontab for abc user
-echo "${UPLOAD_CRONTAB} /usr/bin/with-contenv sh -c '/scripts/upload_cloud'" | crontab -u abc -
-
-# Remove "inherited" root's crontab
-crontab -r
+# Create a crontab for root user
+echo "${UPLOAD_CRONTAB} /usr/bin/with-contenv sh -c '/scripts/upload_cloud'" | crontab -
 
 # Start crond daemon
 exec /usr/sbin/crond -f -l 8 -L /logs/cron.log
