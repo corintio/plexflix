@@ -36,7 +36,6 @@ STATE_ICON = {
 }
 
 @cache = Hash.new
-@pulsedmedia = Hash.new
 
 if ARGV.length != 0 && ARGV[0] == "refresh"
   File.delete(CACHE_FILE)
@@ -101,6 +100,8 @@ class TautulliPlugin
   
   def format_session(session)
     if session["media_type"] == "movie"
+      title = session["title"]
+    elsif session["media_type"] == "clip"
       title = session["title"]
     else
       season = session["parent_media_index"]
@@ -282,14 +283,6 @@ if @config["radarr"]
   puts "---"
   puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
   every 12, radarr, :calendar
-end
-
-# Seedbox
-if @config["seedbox"]
-  puts "---"
-  puts "Seedbox | href=#{@config["seedbox"]["url"]}/rutorrent/ image=#{SEEDBOX_ICON}"
-  every 2, self, :pulsedmedia_bandwidth
-  every 3, self, :pulsedmedia_hdd
 end
 
 puts "---\nRefresh... | bash='#{$0}' param1=refresh terminal=false refresh=true"
