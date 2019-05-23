@@ -19,7 +19,6 @@ require 'yaml'
 # External files
 CONFIG_FILE="~/.plexbar.yml"
 CACHE_FILE="/tmp/plex-info-cache"
-COOKIE_JAR="/tmp/plex-info-cookies.txt"
 
 # Icons
 PMS_ICON="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"
@@ -30,13 +29,12 @@ SEEDBOX_ICON="iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAA
 
 USER_AGENT="-H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'"
 
-@state_icon = {
+STATE_ICON = {
   "playing" => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAplJREFUOBFlUz1oFEEUnje3Sa4wMSpaJbt7uxsvslgdYrtaqM0FQRtFCAhiJYiKSMA+RcDGQiysRAV/EAuFgLIIlgabiAmX8+5yqQ4koEk4b2bH781uIOCD2Tfve7/z3lsSOREYnywMwyNCqWtGUB2An+O0DtV7UupxY2OjW9iCCVMqBMNC6Hl3yIhFIjqNcD+FEZ8N0TIJM0aCZskZunVwfD/92txMYc8k+cOZReT5T6bDyARe5aHrugcY20vx4Xhf5PrzVdiEnv9mrw7O3hw7R657ZY/CiaJoJEkSJxHC2cUrbqWeB6ksWCwIAneqEiBqDsRxPAyFLa1w4jtXSRyQscD37x0NQk4YS9L6RpZloq8H91lZLpe5H1no+rMwvMl3HMZKjUbjL7hotlrzSustQfI2otMM1O+63e4Olzs6OsrGIBobLjkPEOhRLgvFINvkMr2A4QyXN4XLUmEkRJrfjDQDjcpI0nU07Yfv+yehyXq9Xv48Ml+llIfs+6QUtjTrmuQB8MX0ULvBRhBVYRiwpt/v26lJQwOWOcAG7KZZsJQWnJekxGsilmSmQ7z7Oe6liYkJzSD7oHd9BDCfINUZTNNUiYRvSJ+J4YEevFxrt2qrnU6zVqsNAdaw4aaCzAV8PopgMjhRxUgCz7vKMN5aLvg484JsKbu60PfPVwPszWTljH0PmvQMDblktIobnc53OHGnNbLajtvJpCn3V/HeyMy0s8wsNjutszZAAod1z/8mScba6IvNdvs1AvxHyHwOz/2A8rvl7e1jy73eHw7A5WnewJ2trVdDJaeulFpFF54akeFHwiAwBfTksuM4x5VWqVMemVlZWfnNvraC3SDgoshyF6M7hcOQHSWm+UWQWVhrtd5asEj8D30S9wRVOdHHAAAAAElFTkSuQmCC", 
   "paused" => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAUVJREFUOBF9k00yBEEQRgsLrmAxoWdng2DvAByEG+AcbMZuVmZOQHAHRHAB005hIfhedX4V1R1NRrzO7PypzKquTqmT9dCoA3ErWvETYM8EMUupKYYiN8JFz7LnAbb95Fjq2vQkL0l3YuqMSuNbCHLI7Yk7X/S8KdGh10Xvl4JFyiTsy51lZtnW81hsBdj4LJ4knwkHxgI7jkqfh29XGoifCUsjA9+M8U7Ei1iJTYF8dyonkYjYR86HeBWnLDAR7wJZ69To0zHrN2VNhgc0WvmfkwU+xV4kedyxGses95XUssC9OBKN+BLIRqfyljyyfeQ04lA8iHw9WXXBSwifjE/312dcKkZNudq+SFySWphweE5X8lF8XSdi+yozyXQYDJ87P9bxuoMnoQN3Yx5g4xt2LrXFUBL74tdto4CiVfjKnvWea34BWShPN2evMNsAAAAASUVORK5CYII=", 
   "buffering" => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAABaklEQVQ4EY2TyypFURyHN4cRSlF0lEsmhiaewIgXoAwMztwDeQeZSDFTSiYoMTJxK2SgMHD3fWuv/24fUX71rfW/rr322msXRakhpnv4+ifW2lN0OaA3eIABuAHVAS6o6vYwvrX2JDXyvMD8ATPQCz5hMKNtzNwnWKtSbywwSsDkvJk/NEfcmrGcT71uT9QxrCcrr/7DXsM/zbF6X3UWSyR970kYh42M9gSYWwYV55ec2IHODtxBEy7gHEbgFnYhVO9Jsc6c6WE+hEvwaS24hiPoAxW1bdtwe+oZrmAaTsBid3MAj6CitvTyGKuu5oKpWlbbJnMqakuPMQ5kFtvCxZzxk8ZnNWbOGhU9yYkV9/D2oRs2wQbRNmbOGhU95W0i4Hu+wgpsgY36or0N5vSboBrVgOH19JD8jDa8gFdbtI2Ze4K2q4yffqIzZou8qu8QzTEbM2eNtf541Xt4IP0GkA1ekt8wp6xNh/gNyddfpPZ40EwAAAAASUVORK5CYII="
 }
 
-@tautulli = Hash.new
 @cache = Hash.new
 @pulsedmedia = Hash.new
 
@@ -45,128 +43,92 @@ if ARGV.length != 0 && ARGV[0] == "refresh"
   exit
 end
 
-def tautulli(cmd)
-  begin
-    @tautulli[cmd] ||= (
-      content = URI("#{@config["tautulli"]["url"]}/api/v2?apikey=#{@config["tautulli"]["apikey"]}&cmd=#{cmd}").read
+class TautulliPlugin
+  attr_reader :name
+  
+  def initialize(config)
+    @name = 'tautulli'
+    @output = Hash.new
+    @base_url = config["url"]
+    @api_key = config["apikey"]
+  end
+
+  def server_name
+    @servers_info ||= tautulli("get_servers_info")
+    @server_name ||= @servers_info["data"][0]["name"]
+
+    ["#{@server_name} | image=#{TAUTULLI_ICON} href=#{@base_url}/home"]
+  end
+  
+  def num_sessions
+    sessions.size
+  end
+  
+  def total_bandwidth
+    activity = tautulli("get_activity")
+    @total_bandwidth ||= activity["data"]["total_bandwidth"] / 1000
+    # Main icon / Tautulli
+    if num_sessions == 0
+      out = ["No sessions in progress"]
+    else
+      out = ["Total Bandwidth Used: #{@total_bandwidth}Mbps"]
+      out << "---"
+    end
+    out
+  end
+
+  def plex_sessions
+    out = []
+    sessions.each do |session|
+      out = out + format_session(session)
+    end
+    out
+  end  
+  
+  private
+
+  def tautulli(cmd)
+    @output[cmd] ||= (
+      content = URI("#{@base_url}/api/v2?apikey=#{@api_key}&cmd=#{cmd}").read
       JSON.parse(content)["response"]
     )
-  rescue => e
-    puts ":interrobang: | image=#{PMS_ICON}"
-    puts "---"
-    puts "TAUTULLI Error: #{e} | color=red"
-    puts "---"
-    puts "Refresh... | refresh=true"
-    exit
+  end  
+
+  def sessions
+    activity = tautulli("get_activity")
+    @sessions ||= activity["data"]["sessions"]
   end
-end
-
-def server_name
-  @servers_info ||= tautulli("get_servers_info")
-  @server_name ||= @servers_info["data"][0]["name"]
-end
-
-def sessions
-  activity = tautulli("get_activity")
-  @sessions ||= activity["data"]["sessions"]
-end
-
-def total_bandwidth
-  activity = tautulli("get_activity")
-  @total_bandwidth ||= activity["data"]["total_bandwidth"] / 1000
-end
-
-def format_session(session)
-  if session["media_type"] == "movie" 
-    title = session["title"]
-  else
-    season = session["parent_media_index"]
-    episode = session["media_index"]
-    title = sprintf("%s - S%02dE%02d", session["grandparent_title"], season, episode)
+  
+  def format_session(session)
+    if session["media_type"] == "movie"
+      title = session["title"]
+    else
+      season = session["parent_media_index"]
+      episode = session["media_index"]
+      title = sprintf("%s - S%02dE%02d", session["grandparent_title"], season, episode)
+    end
+    href="#{@base_url}/info?rating_key=#{session["rating_key"]}"
+    user_url = "#{@base_url}/user?user_id=#{session["user_id"]}"
+    icon = STATE_ICON[session["state"]] || STATE_ICON["buffering"]
+    out = ["#{title} (#{session["progress_percent"]}%) | href=#{href} templateImage=#{icon}"]
+    out << "--User: #{session["friendly_name"]} | href=#{user_url}"
+    out << "--Quality: #{session["quality_profile"]}"
+    out << "--Bandwidth: #{session["bandwidth"].to_i / 1000}Mbps"
+    out << "--#{session["platform"]}/#{session["product"]}" if session["platform"] + session["product"] != ""
+    out << "--#{session["player"]}" if session["player"]
   end
-  href="#{@config["tautulli"]["url"]}/info?rating_key=#{session["rating_key"]}"
-  user_url = "#{@config["tautulli"]["url"]}/user?user_id=#{session["user_id"]}"
-  icon = @state_icon[session["state"]] || @state_icon["buffering"]
-  out = ["#{title} (#{session["progress_percent"]}%) | href=#{href} templateImage=#{icon}"]
-  out << "--User: #{session["friendly_name"]} | href=#{user_url}"
-  out << "--Quality: #{session["quality_profile"]}"
-  out << "--Bandwidth: #{session["bandwidth"].to_i / 1000}Mbps"
-  out << "--#{session["platform"]}/#{session["product"]}" if session["platform"] + session["product"] != ""
-  out << "--#{session["player"]}" if session["player"]
-end
-
-def plex_sessions
-  out = []
-  sessions.each do |session|
-    out = out + format_session(session)
-  end
-  out
-end
-
-def curl_get(url, with_cookies)
-  cmd = "curl -L '#{url}' #{USER_AGENT}"
-  cmd = cmd + " -b #{COOKIE_JAR}" if with_cookies
-  `umask 0077 && #{cmd} 2> /dev/null`
-end
-
-def curl_post(url, data, with_cookies)
-  cmd = "curl -L -X POST '#{url}' #{USER_AGENT}"
-  cmd = cmd + " -d '#{URI.encode_www_form(data)}' -H 'content-type: application/x-www-form-urlencoded'" unless data.nil?
-  cmd = cmd + " -c #{COOKIE_JAR}" if with_cookies
-  `umask 0077 && #{cmd} 2> /dev/null`
-end
-
-def pulsedmedia(cmd)
-  @pulsedmedia[cmd] ||= (
-    options = {http_basic_authentication: [@config["seedbox"]["user"], @config["seedbox"]["password"]], ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}
-    content = open("#{@config["seedbox"]["url"]}/#{cmd}", options).read
-  )
-end
-
-def pulsemedia_info_line(used, free, total, label)
-  color_ranges = {
-    0..80 => "#36e22d",
-    80..90 => "yellow",
-    90..100 => "red"
-  }
-  percent = used/total * 100
-  if percent < 10
-    percent = percent.round(2)
-  else
-    percent = percent.round
-  end
-  color = color_ranges.select{ |p| p === percent.to_i }.values.first
-  out = ["Used #{label}: #{percent}% | color=#{color}"]
-  out << "Free #{label}: #{free} | alternate=true color=#{color}"
-end
-
-def pulsedmedia_bandwidth
-  welcome = pulsedmedia("welcome.php")
-  bandwidth =  welcome.gsub(/.*"meter-disk-td" title="([^"]+)".*/m, '\1')
-  used = bandwidth.gsub(/^(\d+)GiB.*/, '\1').to_f
-  total = bandwidth.gsub(/.*\s(\d+)GiB$/, '\1').to_f
-  free = "#{((total-used)/1024).round(2)}TB"
-  pulsemedia_info_line(used, free, total, "Bandwidth")
-end
-
-def pulsedmedia_hdd
-  space = JSON.parse(pulsedmedia("rutorrent/plugins/hddquota/action.php"))
-  free = space["free"].to_f
-  total = space["total"].to_f
-  used = total - free
-
-  pulsemedia_info_line(used, "#{(free/1024/1024/1024).round(2)}GB", total, "HDD")
+  
 end
 
 class PVRPlugin
   attr_reader :name
 
-  def initialize(name, base_url, api_key, user, password)
+  def initialize(name, config)
     @output = Hash.new
-    @base_url = base_url
-    @user = user
-    @password = password
-    @api_key = api_key 
+    @base_url = config["url"]
+    @user = config["user"]
+    @password = config["password"]
+    @api_key = config["apikey"]
     @name = name
     if name == "sonarr"
       @release_field = "airDate"
@@ -256,12 +218,18 @@ end
 def every(num, obj, func)
   name = func.to_s
   name = obj.name + "_" + name if obj != self
-  if get_counter % num == 0 || @cache[name].nil?
-    out = obj.send(func) 
-    out = [] if out.nil?
-    @cache[name] = out.join("\n")
+  begin
+    if get_counter % num == 0 || @cache[name].nil?
+      out = obj.send(func) 
+      out = [] if out.nil?
+      @cache[name] = out.join("\n")
+    end
+    puts @cache[name]
+  rescue => e
+    puts "#{name} :exclamation: | color=red"
+    puts "--Error: #{e} | color=white"
+    e.backtrace.each {|line| puts "--#{line} | color=white"}
   end
-  puts @cache[name]
 end
 
 #######################################################################################
@@ -285,33 +253,36 @@ if File.exist?(CACHE_FILE)
   end
 end
 
-# Main icon / Tautulli
-if sessions.size == 0
-  puts "| image=#{PMS_ICON}"
-  puts "---"
-  puts "#{server_name} | image=#{TAUTULLI_ICON} href=#{@config["tautulli"]["url"]}/home"
-  puts "No sessions in progress "
-else
-  puts "#{sessions.size} | image=#{PMS_ICON}"
-  puts "---"
-  puts "#{server_name} | image=#{TAUTULLI_ICON} href=#{@config["tautulli"]["url"]}/home"
-  puts "Total Bandwidth Used: #{total_bandwidth}Mbps"
-  puts "---"
+tautulli = TautulliPlugin.new(@config["tautulli"])
+begin
+  num_sessions = tautulli.num_sessions
+  num_sessions = "" if num_sessions == 0
+rescue => e
+  num_sessions = ":interrobang:"
 end
-every 1, self, :plex_sessions
+puts "#{num_sessions} | image=#{PMS_ICON}"
+puts "---"
+
+every 1, tautulli, :server_name
+every 1, tautulli, :total_bandwidth
+every 1, tautulli, :plex_sessions
 
 # Sonarr
-sonarr = PVRPlugin.new("sonarr", @config["sonarr"]["url"], @config["sonarr"]["apikey"], @config["sonarr"]["user"], @config["sonarr"]["password"])
-puts "---"
-puts "Sonarr | image=#{SONARR_ICON} href=#{@config["sonarr"]["url"]}"
-every 12, sonarr, :calendar
-every 6, sonarr, :missing
+if @config["sonarr"]
+  sonarr = PVRPlugin.new("sonarr", @config["sonarr"])
+  puts "---"
+  puts "Sonarr | image=#{SONARR_ICON} href=#{@config["sonarr"]["url"]}"
+  every 12, sonarr, :calendar
+  every 6, sonarr, :missing
+end
 
 # Radarr
-radarr = PVRPlugin.new("radarr", @config["radarr"]["url"], @config["radarr"]["apikey"], @config["radarr"]["user"], @config["radarr"]["password"])
-puts "---"
-puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
-every 12, radarr, :calendar
+if @config["radarr"]
+  radarr = PVRPlugin.new("radarr", @config["radarr"])
+  puts "---"
+  puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
+  every 12, radarr, :calendar
+end
 
 # Seedbox
 if @config["seedbox"]
