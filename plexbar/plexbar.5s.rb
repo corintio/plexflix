@@ -55,8 +55,11 @@ class TautulliPlugin
   def server_name
     @servers_info ||= tautulli("get_servers_info")
     @server_name ||= @servers_info["data"][0]["name"]
+    @server_version ||= @servers_info["data"][0]["version"]
 
-    ["#{@server_name} | image=#{TAUTULLI_ICON} href=#{@base_url}/home"]
+    out = ["#{@server_name} | image=#{TAUTULLI_ICON} href=#{@base_url}/home"]
+    out << "#{@server_version} | image=#{TAUTULLI_ICON} href=#{@base_url}/home alternate=true"
+    out
   end
   
   def num_sessions
