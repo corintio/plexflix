@@ -16,4 +16,9 @@ sonarr:
 radarr:
   url: https://server.mydomain.com/radarr
   apikey: 9e6f41fbb004e144ec9a0e69b0f0b011
+
+transmission:
+  url: https://server.mydomain.com/radarr
+  user: user
+  password: password
 ```

@@ -26,8 +26,7 @@ TAUTULLI_ICON="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAA
 SONARR_ICON="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAAsTAAALEwEAmpwYAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAAC90lEQVQ4EW1TW0hUURTdd7yO9lX2VVE2RBmJZJH5IF+hEH30ENMoQimCSPzwo8CgaBA0DBtQKTBRIe2jUosgAiUtrUgj00zJRzKOOs6M6cydcebO487s9r7i2EcbFmefw1lnv9YBINMDaHhls1qtiZIk1ROGCBaC1eFwjDidzgbyk9duEUevD3PCztLSksHn8yGb3+9Ht9utgn22QCCAdru98X+PACSefd3Y1IyS5Ah6ZNlPURW6HLQ7HEH23R6Pnx5U2js7EdIKetcfUdd5k8lwz1CHABny7fKboamJX+hyuVCWvSpWV1fROPMba6qr6E6uXHbrLk5NTKiZCFTzwS0xMSNOhz2kr6wWHkbuE3YMdUFxchzs0e0GjSDA3IIZng/Pwnh8JhTO98ODqgpl565YcWVlJQ3sklTL9Xl9Pv/o928IReWYfP8ZRQKE7EsIOcWqn1L5BKGwDAc+9aM/EPCHQiGkxjYBdXaQm8R1ko+l166qhPSGbswa8GLWoBfTmz/gJnrwfN4p/LO8zETF6/VSv6QxkYJvUxQFaBW02ijYG7cfIPsCaA6lgyeoEA0hOiEV5DPX4UD8ZoiOigZFCWgoKHN0IqUaHiMIABEa2mr4GEAgctioF6IYQYfhExDojMlWURR5g5zJnHkRoKcVfCOfiRCpIjA2APDqEcwYTcCRyVCr1fI6yz2op1SQ5zwzPYW6kxcwtaoVddzE/BKEc6W4nfxMQzvC8QL8+WMYqX61icRt0VA3m0h9nJnmZccLNB7OhS9fByE2KQFKYjxQutUDCRkp0NfbDZB6Ap62tVEWPrU6ynhNlaS42vYOUhjkyKcLL4bedb3FBbMZSYU0HQkXLRb8+L4Hiy5foTu5MivWZrM1cw0blpT/5sadCjTNGhWeMymRxxpi0NiCPireZrUEKmtqEY7m9RFxrZ3//qrpycm6YDCELBL+VCxnBs+cz9hMptkWIquTC3P1+o1R0o88QqJ6TBglSAQXYZyyaCHZH1tPeZ38F9gqHuoZR+ePAAAAAElFTkSuQmCC"
 RADARR_ICON="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAztJREFUOBFlU11oFFcU/mZmN5ukmgSLgvbFSK1WUsQHzYYY0ELVFq0tJC0IfVD6A31oH6wiFhRFRLQoxuw2a/tQiFQU05ag2WQTI/5EY+ODqW7NJpLEWPoiO5ndzOzOzO7c03NHNwo9cLgf557v3HPv/Q7AdvEiNLlKc+NYa6c6I9b00H3r6T3Ld8b50c6o24N1z7Ne4ZTIRNDSd1vbvcw0EXlU8ARlLcd3iWXMyzwlfbg9RtcQkIVKXPCuduUIene0bKeRRxPkuK6r63rBMGaE9BnGDgdHxyfFZ9sbqOsQEszxi6iy0o1TSlvf5Mebvt44ZXfsXyZS4xPB6uqqQFmwTJE+v6oqMDU5EWxaVUv1739u37e/ee/qcSUiuaDBLWu/+xDUfXVQkP3E+/vCJ9QUXkNX4r3UFo1RayRGiUQv1b1TRx3nzvHB5N28Myz2NnPjN9fXo+sgIgf276FMNuvq2RzlTYOGL58hWbu+GrRxCXx8qbOTbNsmwzDINC33xLEj9Mf3+DEw9hiNq5ubUFlerpjmLJxACHXv7sS/13TUFH6BqpiYEnvxxvoP4DoOhBAIhYJK3Zowkh1oVD0Ny6tqFnA/gr9SkQfDyc1icUUKFeUKJy/AipohUC4NoWhQOIWE0CrmzYcawlv+I8q38E3yuYgKwUuBsZQHY46Qwqn813P2Aqqah/GsoXNl1ZP7KnlQKl7HWCbMLT+DW6jE1LOFCAaDULQAn05+rpk1IByMqSvfxOBf924hxw+kaRrKQiH0J+JYsWk3tn1pYNtXI6jdGsXAhWMoK8xACVbCdlwaYc7yWgyCbm9et5u/MTFww5fbr+fP09LapRTv7qZTrVE6ebqNenp66bW3G+h66yKi2RGv7/qQ2PMRX+jWhrB/pYHjiO37dhedjp7Ns7y8ZDJJxWKRLMtkt8grFij5KEXNjfC6jyK/74vN1P8Dfnr5HizLy4eR+HTLano4+lg8l3K6mGEZS9f1dFFK+UFqQjS3tFDXYfSXpDw3EHJA9D8jZ0X2Hyk2KhQFZUzbd4llTO6l7575+X/DNDdV3FOuD+H82G/t1vSdBzzKTo7dfDL0MJ/6PZaLo6HUdonzHy7qBnX7KhkoAAAAAElFTkSuQmCC"
 SEEDBOX_ICON="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"
-
-USER_AGENT="-H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'"
+TRANSMISSION_ICON="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAA1VJREFUOBFVU11MFFcU/u7MMLvKdrGysCAgBhVQE60G/AlgooltbNPEPhjTpIlF2ibaVIl9UjRsk/rSmJo09S+KBrFPfehPWqBY26RsVoxoatOwNjUUtqssZlnWnVmYnb/Te0d46E3O3Hu/853vnnvOHQY+iEhijLkL6/W2ZXXMJZNtlparIALUkpLU0qrKqFLku8Z5f/4vRgQLQAzTss6mosM0fuok3eO6wwsm1uNdJyg1/BuZpvn5C/bCwYub3MzMD8b3373xsP2QqwLOkoPvMCVUxrif2em0O9/bRyYgb+y5Ki3Z99ZAsLT09cVY5HT97PS1HuoH5h/13XAdxyGrUCDbtj2zzAIJ7NFXN13BSV29QpqmnRMCCr/C+omfBj+eONRBxYBPz2TYbCYDXhT4/H7vkIJhQBRI+ARn7L333brq6s4CUY/0LJV61/rlNniutly/kmWPdSJWVobY3j3I53LIaxpib+5FLBRC9qOjkBtXMZlzzVtDyE5NtSv5xGSrNvQjeCUZzT6BrzaEZfvextzUUxj5PHjVEaxZiaXN22D0fwM3MQEWhJzr/xbK/gMtipV9Xm79HgdrqJXcvybh6z6Mqs7jmL57F3M8AyHwUnsHKrbvwGRpCEZ3BPK6OtjxcZjZ2XLFcV1HlBoEEvdUGtbBsm1Y/AHwAnkCtksepjQ0cBpPVX7RecclR2HFxRNq2/Z6c3hE+CCFw9BnZjCf/BfZB/c5IMG3vBTa6tWQysOCAko8JnXbZrBAYFKSKisH/Tt3CWXC7p2gQAAaFzBGR8G6ToGdOAnjwSj0dBrgPraHc3Nw/btehRwODyj2mjW9xpambp5Uib2lyXX9fknmqS8/8iHMTZuELNSWFu9kh2eDzU0uu/WrOt+8tfByff1NZQNjmXtjY2fCFy98Nn6my0o3NRcxEk3hI1wh2guKx70t8f9F+rrPqjv/pe95Y2OkjrFpRCIRjxy9c+d6/PIlGuL8AaDAzeKvzhEm1gITvvilixQdifUKRf4IGfM+fBLAYDR6OvD0yellj/8usv94CDuZEDCUqhooG1/B7Nq19lzlik9fa2v7ROBe7OJCzLzn9MXISHWtrn+g6vpuyTBqPL/fnzSDwZ//UdWeY62tCRG4yP8PUtanvCymhNMAAAAASUVORK5CYII="
 
 STATE_ICON = {
   "playing" => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAplJREFUOBFlUz1oFEEUnje3Sa4wMSpaJbt7uxsvslgdYrtaqM0FQRtFCAhiJYiKSMA+RcDGQiysRAV/EAuFgLIIlgabiAmX8+5yqQ4koEk4b2bH781uIOCD2Tfve7/z3lsSOREYnywMwyNCqWtGUB2An+O0DtV7UupxY2OjW9iCCVMqBMNC6Hl3yIhFIjqNcD+FEZ8N0TIJM0aCZskZunVwfD/92txMYc8k+cOZReT5T6bDyARe5aHrugcY20vx4Xhf5PrzVdiEnv9mrw7O3hw7R657ZY/CiaJoJEkSJxHC2cUrbqWeB6ksWCwIAneqEiBqDsRxPAyFLa1w4jtXSRyQscD37x0NQk4YS9L6RpZloq8H91lZLpe5H1no+rMwvMl3HMZKjUbjL7hotlrzSustQfI2otMM1O+63e4Olzs6OsrGIBobLjkPEOhRLgvFINvkMr2A4QyXN4XLUmEkRJrfjDQDjcpI0nU07Yfv+yehyXq9Xv48Ml+llIfs+6QUtjTrmuQB8MX0ULvBRhBVYRiwpt/v26lJQwOWOcAG7KZZsJQWnJekxGsilmSmQ7z7Oe6liYkJzSD7oHd9BDCfINUZTNNUiYRvSJ+J4YEevFxrt2qrnU6zVqsNAdaw4aaCzAV8PopgMjhRxUgCz7vKMN5aLvg484JsKbu60PfPVwPszWTljH0PmvQMDblktIobnc53OHGnNbLajtvJpCn3V/HeyMy0s8wsNjutszZAAod1z/8mScba6IvNdvs1AvxHyHwOz/2A8rvl7e1jy73eHw7A5WnewJ2trVdDJaeulFpFF54akeFHwiAwBfTksuM4x5VWqVMemVlZWfnNvraC3SDgoshyF6M7hcOQHSWm+UWQWVhrtd5asEj8D30S9wRVOdHHAAAAAElFTkSuQmCC", 
@@ -35,12 +34,28 @@ STATE_ICON = {
   "buffering" => "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAABaklEQVQ4EY2TyypFURyHN4cRSlF0lEsmhiaewIgXoAwMztwDeQeZSDFTSiYoMTJxK2SgMHD3fWuv/24fUX71rfW/rr322msXRakhpnv4+ifW2lN0OaA3eIABuAHVAS6o6vYwvrX2JDXyvMD8ATPQCz5hMKNtzNwnWKtSbywwSsDkvJk/NEfcmrGcT71uT9QxrCcrr/7DXsM/zbF6X3UWSyR970kYh42M9gSYWwYV55ec2IHODtxBEy7gHEbgFnYhVO9Jsc6c6WE+hEvwaS24hiPoAxW1bdtwe+oZrmAaTsBid3MAj6CitvTyGKuu5oKpWlbbJnMqakuPMQ5kFtvCxZzxk8ZnNWbOGhU9yYkV9/D2oRs2wQbRNmbOGhU95W0i4Hu+wgpsgY36or0N5vSboBrVgOH19JD8jDa8gFdbtI2Ze4K2q4yffqIzZou8qu8QzTEbM2eNtf541Xt4IP0GkA1ekt8wp6xNh/gNyddfpPZ40EwAAAAASUVORK5CYII="
 }
 
-@cache = Hash.new
+$cache = Hash.new
 $error = false
 
 if ARGV.length != 0 && ARGV[0] == "refresh"
   File.delete(CACHE_FILE)
   exit
+end
+
+class Integer
+  def to_filesize
+    {
+      'B'  => 1024,
+      'KB' => 1024 * 1024,
+      'MB' => 1024 * 1024 * 1024,
+      'GB' => 1024 * 1024 * 1024 * 1024,
+      'TB' => 1024 * 1024 * 1024 * 1024 * 1024
+    }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(2)}#{e}" if self < s }
+  end
+
+  def to_speed
+    "#{self.to_filesize}/s"
+  end
 end
 
 class TautulliPlugin
@@ -207,24 +222,107 @@ class PVRPlugin
   end
 end
 
+class TransmissionPlugin
+  attr_reader :name, :web_url
+
+  def initialize(config)
+    @name = "transmission"
+    @base_url = config["url"]
+    @web_url = "#{@base_url}/web/index.html"
+    @uri = URI.parse("#{@base_url}/rpc")
+    @user = config["user"]
+    @password = config["password"]
+    @output = Hash.new
+  end
+
+  def speed
+    resp = call_rpc("torrent-get")
+    if resp["arguments"]["torrents"].size == 0
+      out = ["No downloads in progress"]
+    else
+      up = down = 0
+      resp["arguments"]["torrents"].each do |torrent|
+        up += torrent["rateUpload"]
+        down += torrent["rateDownload"]
+      end
+      out = ["↓%s ↑%s" % [down.to_speed, up.to_speed]]
+    end
+    out
+  end
+
+  def queue
+    resp = call_rpc("torrent-get")
+    out = []
+    if resp["arguments"]["torrents"].size > 0 
+      out << "%d downloads" % resp["arguments"]["torrents"].size
+      resp["arguments"]["torrents"].each do |torrent|
+        color = "blue" if torrent["isFinished"]
+        color = "gray" if torrent["isStalled"] 
+        color = "white" if color.to_s.empty?
+        percent = torrent["percentDone"].to_f * 100
+        speed = torrent["rateDownload"].to_speed
+        out << "--%-50s  %2.1f%% | color=%s font=Courier" % [torrent["name"], percent, color]
+        out << "--%-50s  %s | color=%s font=Courier alternate=true" % [torrent["name"], speed, color]
+      end
+    end
+    out
+  end
+
+  private
+
+  def call_rpc(method)
+    @output[method] ||= (
+      _, resp = with_cached_value("transmission_id") do
+        raw_call_rpc(method)
+      end
+      resp
+    )
+  end
+
+  def raw_call_rpc(method, id="xxx", json = true)
+    header = {'x-transmission-session-id': id}
+    req = Net::HTTP::Post.new(@uri.path, header)
+    req.basic_auth @user, @password unless @user.empty?
+    req.body = '{"method":"' + method + '","arguments":{"fields":["id","name","error","errorString","eta","isFinished","isStalled","leftUntilDone","percentDone","rateDownload", "rateUpload"]}}'
+    
+    http = Net::HTTP.new(@uri.host, @uri.port)
+    http.use_ssl = @uri.scheme == "https" 
+    resp = http.start {|http| http.request(req) }.body
+    if resp.include? "409: Conflict"
+      new_id = /\<code\>X-Transmission-Session-Id\: (.*)\<\/code\>/.match(resp)[1]
+      id, resp = raw_call_rpc(method, new_id, false)
+    end
+    return id, JSON.parse(resp) if json
+    return id, resp
+  end
+end
+
 def get_counter
   @counter ||= (
-    c = @cache['counter'] ? @cache['counter'] : 0
-    @cache['counter'] = c + 1
+    c = $cache['counter'] ? $cache['counter'] : 0
+    $cache['counter'] = c + 1
     c
   )
+end
+
+def with_cached_value(name)
+  value = $cache[name]
+  result = yield value
+  new_value = Array(result)[0]
+  $cache[name] = new_value
+  result
 end
 
 def every(num, obj, func)
   name = func.to_s
   name = obj.name + "_" + name if obj != self
   begin
-    if get_counter % num == 0 || @cache[name].nil?
+    if get_counter % num == 0 || $cache[name].nil?
       out = obj.send(func) 
       out = [] if out.nil?
-      @cache[name] = out.join("\n")
+      $cache[name] = out.join("\n")
     end
-    puts @cache[name]
+    puts $cache[name]
   rescue => e
     $error = true
     puts "#{name} :exclamation: | color=red"
@@ -256,10 +354,10 @@ end
 if File.exist?(CACHE_FILE)
   begin
     File.open(CACHE_FILE, "r:UTF-8") do |f| 
-      @cache = JSON.parse(f.read)
+      $cache = JSON.parse(f.read)
     end
   rescue
-    @cache = Hash.new
+    $cache = Hash.new
   end
 end
 
@@ -286,6 +384,15 @@ output = with_captured_stdout do
     every 12, radarr, :calendar
   end
 
+  # Transmission
+  if @config["transmission"]
+    transmission = TransmissionPlugin.new(@config["transmission"])
+    puts "---"
+    puts "Transmission | image=#{TRANSMISSION_ICON} href=#{transmission.web_url}"
+    every 1, transmission, :speed
+    every 1, transmission, :queue
+  end
+
   puts "---\nRefresh... | bash='#{$0}' param1=refresh terminal=false refresh=true"
 end
 
@@ -307,5 +414,5 @@ STDOUT.puts output
 
 # Save cached info
 File.open(CACHE_FILE, "w:UTF-8") do |f| 
-  f.write @cache.to_json
+  f.write $cache.to_json
 end 
