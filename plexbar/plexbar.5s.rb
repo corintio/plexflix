@@ -36,6 +36,7 @@ STATE_ICON = {
 }
 
 @cache = Hash.new
+$error = false
 
 if ARGV.length != 0 && ARGV[0] == "refresh"
   File.delete(CACHE_FILE)
@@ -188,16 +189,11 @@ class PVRPlugin
   private 
   
   def call_api(cmd, args = "")
-    begin
-      @output[cmd+args] ||= (
-        options = @user ? {http_basic_authentication: [@user, @password]} : Hash.new
-        content = open("#{@base_url}/api/#{cmd}?apikey=#{@api_key}#{args}", options).read
-        JSON.parse(content)
-      )
-    rescue => e
-      puts "PVR Error: #{e} | color=red"
-      exit
-    end
+    @output[cmd+args] ||= (
+      options = @user ? {http_basic_authentication: [@user, @password]} : Hash.new
+      content = open("#{@base_url}/api/#{cmd}?apikey=#{@api_key}#{args}", options).read
+      JSON.parse(content)
+    )
   end
 
   def build_title(record)
@@ -230,10 +226,20 @@ def every(num, obj, func)
     end
     puts @cache[name]
   rescue => e
+    $error = true
     puts "#{name} :exclamation: | color=red"
     puts "--Error: #{e} | color=white"
     e.backtrace.each {|line| puts "--#{line} | color=white"}
   end
+end
+
+def with_captured_stdout
+  original_stdout = $stdout
+  $stdout = StringIO.new
+  yield
+  $stdout.string
+ensure
+  $stdout = original_stdout
 end
 
 #######################################################################################
@@ -258,37 +264,46 @@ if File.exist?(CACHE_FILE)
 end
 
 tautulli = TautulliPlugin.new(@config["tautulli"])
+output = with_captured_stdout do
+  every 1, tautulli, :server_name
+  every 1, tautulli, :total_bandwidth
+  every 1, tautulli, :plex_sessions
+
+  # Sonarr
+  if @config["sonarr"]
+    sonarr = PVRPlugin.new("sonarr", @config["sonarr"])
+    puts "---"
+    puts "Sonarr | image=#{SONARR_ICON} href=#{@config["sonarr"]["url"]}"
+    every 12, sonarr, :calendar
+    every 6, sonarr, :missing
+  end
+
+  # Radarr
+  if @config["radarr"]
+    radarr = PVRPlugin.new("radarr", @config["radarr"])
+    puts "---"
+    puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
+    every 12, radarr, :calendar
+  end
+
+  puts "---\nRefresh... | bash='#{$0}' param1=refresh terminal=false refresh=true"
+end
+
 begin
   num_sessions = tautulli.num_sessions
   num_sessions = "" if num_sessions == 0
 rescue => e
   num_sessions = ":interrobang:"
 end
-puts "#{num_sessions} | image=#{PMS_ICON}"
+
+if $error
+  puts ":exclamation: | image=#{PMS_ICON} color=red"
+else
+  puts "#{num_sessions} | image=#{PMS_ICON}"
+end
 puts "---"
 
-every 1, tautulli, :server_name
-every 1, tautulli, :total_bandwidth
-every 1, tautulli, :plex_sessions
-
-# Sonarr
-if @config["sonarr"]
-  sonarr = PVRPlugin.new("sonarr", @config["sonarr"])
-  puts "---"
-  puts "Sonarr | image=#{SONARR_ICON} href=#{@config["sonarr"]["url"]}"
-  every 12, sonarr, :calendar
-  every 6, sonarr, :missing
-end
-
-# Radarr
-if @config["radarr"]
-  radarr = PVRPlugin.new("radarr", @config["radarr"])
-  puts "---"
-  puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
-  every 12, radarr, :calendar
-end
-
-puts "---\nRefresh... | bash='#{$0}' param1=refresh terminal=false refresh=true"
+STDOUT.puts output
 
 # Save cached info
 File.open(CACHE_FILE, "w:UTF-8") do |f| 
