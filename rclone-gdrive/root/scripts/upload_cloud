@@ -1,17 +1,20 @@
 #!/usr/bin/with-contenv sh
 
+set -e
+
 LOGFILE=/logs/upload_cloud.log
 FROM=${UPLOAD_PATH}
 TO=${REMOTE_PATH}
+LOCKFILE="/var/run/`basename $0`"
 
 log() {
   echo "$(date "+%Y/%m/%d %T") INFO  : $*" | tee -a $LOGFILE
 }
 
-if pidof -o %PPID "upload_cloud"; then
-  log "RCLONE UPLOAD IN PROGRESS"
-  exit 1
-fi
+# Avoid multiple runs
+exec 200>$LOCKFILE
+flock -n 200 || (log "RCLONE UPLOAD IN PROGRESS" && exit 1)
+echo $$ 1>&200
 
 # MOVE FILES OLDER THEN UPLOAD_DELAY MINUTES
 if find $FROM -type f -mmin +${UPLOAD_DELAY} | grep -v downloads | read; then
