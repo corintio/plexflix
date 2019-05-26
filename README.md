@@ -178,6 +178,7 @@ be exposed to external access
 # To Do
 - ~~Fix Rclone logging~~
 - ~~Use mergerfs in rclone container~~
+- ~~Use Transmission-OpenVPN's proxy in Sonarr/Radar/Jackett~~
 - Use Plex Autoscan: https://github.com/l3uddz/plex_autoscan/
 - Expose Plex through port 80/443
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
@@ -193,7 +194,7 @@ be exposed to external access
 # Future
 - Move Rclone to own project and publish the image in Docker Hub
 - Automate full restore
-- Auto convert magnet links to .torrent files in the watch folder
+- ~~Auto convert magnet links to .torrent files in the watch folder~~
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
 - Cockpit https://cockpit-project.org/
 - Investigate qBittorrent+SOCKS5

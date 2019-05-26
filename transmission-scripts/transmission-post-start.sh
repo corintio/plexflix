@@ -1,12 +1,5 @@
 #!/bin/bash
 
-if ! which inotifywait; then
-    export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    apt-get update
-    apt-get install -y inotify-tools
-    apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-fi
-
 process_file_found() {
     path=$1
     file=$2
@@ -23,12 +16,26 @@ process_file_found() {
     fi
 }
 
-find ${TRANSMISSION_WATCH_DIR} -name "*.magnet" -printf "%f\n" |
-    while read file; do
-        process_file_found "${TRANSMISSION_WATCH_DIR}" "${file}"
-    done
+(
 
-inotifywait -m -e create -e moved_to ${TRANSMISSION_WATCH_DIR} |
-    while read path action file; do
-        process_file_found "${path}" "${file}"
-    done &
+    if ! which inotifywait; then
+        echo "Installing inotify-tools"
+        export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        apt-get update
+        apt-get install -y inotify-tools
+        apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    fi
+
+    echo "Processing any pending magnet files"
+    find ${TRANSMISSION_WATCH_DIR} -name "*.magnet" -printf "%f\n" |
+        while read file; do
+            process_file_found "${TRANSMISSION_WATCH_DIR}" "${file}"
+        done
+
+    echo "Starting magnet file watcher"
+    inotifywait -m -e create -e moved_to ${TRANSMISSION_WATCH_DIR} |
+        while read path action file; do
+            process_file_found "${path}" "${file}"
+        done
+
+)&
