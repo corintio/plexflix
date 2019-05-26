@@ -43,6 +43,7 @@ services:
       - ./localtime:/etc/localtime:ro
       - ./data/local/downloads/:/data
       - ./config/vpn:/etc/openvpn/custom
+      - ./transmission-scripts:/scripts
     env_file: .env
     restart: unless-stopped
 
