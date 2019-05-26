@@ -50,7 +50,7 @@ class Integer
       'MB' => 1024 * 1024 * 1024,
       'GB' => 1024 * 1024 * 1024 * 1024,
       'TB' => 1024 * 1024 * 1024 * 1024 * 1024
-    }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(2)}#{e}" if self < s }
+    }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(2)} #{e}" if self < s }
   end
 
   def to_speed
@@ -90,7 +90,6 @@ class TautulliPlugin
       out = ["No sessions in progress"]
     else
       out = ["Total Bandwidth Used: #{@total_bandwidth}Mbps"]
-      out << "---"
     end
     out
   end
@@ -100,14 +99,28 @@ class TautulliPlugin
     sessions.each do |session|
       out = out + format_session(session)
     end
+    out << "---" if out.size > 0
     out
   end  
+
+  def recently_added
+    out = []
+    recent = tautulli("get_recently_added", "count=20")
+    if recent["data"]["recently_added"].size > 0
+      out << "Recently added | color=white"
+      recent["data"]["recently_added"].each do |item|
+        out << "--#{get_title(item)} | href=#{@base_url}/info?rating_key=#{item["rating_key"]}"
+      end
+      out << "---"
+    end
+    out
+  end
   
   private
 
-  def tautulli(cmd)
-    @output[cmd] ||= (
-      content = URI("#{@base_url}/api/v2?apikey=#{@api_key}&cmd=#{cmd}").read
+  def tautulli(cmd, params = "")
+    @output[cmd+params] ||= (
+      content = URI("#{@base_url}/api/v2?apikey=#{@api_key}&cmd=#{cmd}&#{params}").read
       JSON.parse(content)["response"]
     )
   end  
@@ -116,17 +129,19 @@ class TautulliPlugin
     activity = tautulli("get_activity")
     @sessions ||= activity["data"]["sessions"]
   end
+
+  def get_title(item)
+    return "#{item["title"]}" if item["media_type"] == "clip"
+    return "#{item["title"]}" if item["media_type"] == "movie"
+    return "#{item["full_title"]}" if item["media_type"] == "show"
+    return sprintf("%s - %s", item["parent_title"], item["title"]) if item["media_type"] == "season"
+    season = item["parent_media_index"].to_i
+    episode = item["media_index"].to_i
+    title = sprintf("%s - S%02dE%02d", item["grandparent_title"], season, episode)
+  end
   
   def format_session(session)
-    if session["media_type"] == "movie"
-      title = session["title"]
-    elsif session["media_type"] == "clip"
-      title = session["title"]
-    else
-      season = session["parent_media_index"]
-      episode = session["media_index"]
-      title = sprintf("%s - S%02dE%02d", session["grandparent_title"], season, episode)
-    end
+    title = get_title(session)
     href="#{@base_url}/info?rating_key=#{session["rating_key"]}"
     user_url = "#{@base_url}/user?user_id=#{session["user_id"]}"
     icon = STATE_ICON[session["state"]] || STATE_ICON["buffering"]
@@ -255,14 +270,20 @@ class TransmissionPlugin
     out = []
     if resp["arguments"]["torrents"].size > 0 
       out << "%d downloads" % resp["arguments"]["torrents"].size
-      resp["arguments"]["torrents"].each do |torrent|
+      torrents = resp["arguments"]["torrents"].sort do |a, b|
+        s = (a["isFinished"]?1:0) <=> (b["isFinished"]?1:0)
+        s = ((a["isStalled"] || a["eta"]<0)?1:0) <=> ((b["isStalled"] || b["eta"]<0)?1:0) if s == 0
+        s = a["eta"] <=> b["eta"] if s == 0
+        s
+      end
+      torrents.each do |torrent|
         color = "blue" if torrent["isFinished"]
-        color = "gray" if torrent["isStalled"] 
+        color = "gray" if torrent["isStalled"] || torrent["eta"] < 0
         color = "white" if color.to_s.empty?
         percent = torrent["percentDone"].to_f * 100
         speed = torrent["rateDownload"].to_speed
-        out << "--%-50s  %2.1f%% | color=%s font=Courier" % [torrent["name"], percent, color]
-        out << "--%-50s  %s | color=%s font=Courier alternate=true" % [torrent["name"], speed, color]
+        out << "--%-50s  %2.1f%% | color=%s font=Courier " % [torrent["name"][0,50], percent, color]
+        out << "--%-50s  %s | color=%s font=Courier alternate=true" % [torrent["name"][0,50], speed, color]
       end
     end
     out
@@ -365,6 +386,7 @@ tautulli = TautulliPlugin.new(@config["tautulli"])
 output = with_captured_stdout do
   every 1, tautulli, :server_name
   every 1, tautulli, :total_bandwidth
+  every 3, tautulli, :recently_added
   every 1, tautulli, :plex_sessions
 
   # Sonarr
