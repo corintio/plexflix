@@ -179,15 +179,14 @@ be exposed to external access
 - ~~Fix Rclone logging~~
 - ~~Use mergerfs in rclone container~~
 - ~~Use Transmission-OpenVPN's proxy in Sonarr/Radar/Jackett~~
-- Use Plex Autoscan: https://github.com/l3uddz/plex_autoscan/
+- ~~Use Plex Autoscan: https://github.com/l3uddz/plex_autoscan/~~ Not necessary for now
 - Expose Plex through port 80/443
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Auto clean .trash (remove older than 1 month)
   - Docker-GC: https://github.com/spotify/docker-gc
   - Log rotate https://hub.docker.com/r/blacklabelops/logrotate
   - Call watchtower(?)
-- Replace Basic Auth with Google Authentication oAuth (https://caddyserver.com/docs/http.login)
-  Maybe installing Caddy with params? `CADDY_TELEMETRY=on curl https://getcaddy.com | bash -s personal http.cache,http.cgi,http.jwt,http.login,http.realip,tls.dns.cloudflare`
+- Replace htpasswd with Google Authentication oAuth (https://github.com/tarent/loginsrv/blob/master/caddy/README.md#example-caddyfile-with-google-login)
 - Finish Ansible setup
 - Investigate use of hardlinks and moves in Sonarr/Radarr
 
