@@ -2,12 +2,12 @@
 
 # <bitbar.title>Plex Bar</bitbar.title>
 # <bitbar.version>v0.0.1</bitbar.version>
-# <bitbar.author>Deluan Quintao</bitbar.author>
-# <bitbar.author.github>deluan</bitbar.author.github>
-# <bitbar.desc></bitbar.desc>
+# <bitbar.author>Corintio</bitbar.author>
+# <bitbar.author.github>corintio</bitbar.author.github>
+# <bitbar.desc>Monitors your Media Server services</bitbar.desc>
 # <bitbar.image></bitbar.image>
 # <bitbar.dependencies>tautulli</bitbar.dependencies>
-# <bitbar.abouturl></bitbar.abouturl>
+# <bitbar.abouturl>https://github.com/corintio/plexflix/tree/master/plexbar</bitbar.abouturl>
 
 require 'json'
 require 'base64'
@@ -50,7 +50,7 @@ class Integer
       'MB' => 1024 * 1024 * 1024,
       'GB' => 1024 * 1024 * 1024 * 1024,
       'TB' => 1024 * 1024 * 1024 * 1024 * 1024
-    }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(2)} #{e}" if self < s }
+    }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(1)} #{e}" if self < s }
   end
 
   def to_speed
@@ -89,7 +89,7 @@ class TautulliPlugin
     if num_sessions == 0
       out = ["No sessions in progress"]
     else
-      out = ["Total Bandwidth Used: #{@total_bandwidth}Mbps"]
+      out = ["Total Bandwidth Used: #{@total_bandwidth} Mbps"]
     end
     out
   end
@@ -260,7 +260,7 @@ class TransmissionPlugin
         up += torrent["rateUpload"]
         down += torrent["rateDownload"]
       end
-      out = ["↓%s ↑%s" % [down.to_speed, up.to_speed]]
+      out = ["↓%s  •  %s↑" % [down.to_speed, up.to_speed]]
     end
     out
   end

@@ -1,9 +1,15 @@
 PlexBar
 =======
 
-This is a plugin for [BitBar](https://getbitbar.com/). Configure your servers in `~/.plexbar.yml`. 
+This is a plugin for [BitBar](https://getbitbar.com/). It allows you to keep an eye on 
+your services:
 
-Sample config:
+
+![Screenshot](https://i.imgsafe.org/b5/b5c1322ba7.png)
+
+
+
+Configure your servers in `~/.plexbar.yml`. Sample config:
 ```
 tautulli:
   url: https://server.mydomain.com/tautulli
@@ -18,7 +24,7 @@ radarr:
   apikey: 9e6f41fbb004e144ec9a0e69b0f0b011
 
 transmission:
-  url: https://server.mydomain.com/radarr
+  url: https://server.mydomain.com/transmission
   user: user
   password: password
 ```
