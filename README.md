@@ -1,7 +1,16 @@
 # PlexFlix
 
-This is my personal Mediaserver installation, based on [Dockerized](http://docker.com) 
+This is my personal Mediaserver setup, based on [Dockerized](http://docker.com) 
 apps. 
+
+### Features:
+- Fully automated solution, with automatic download for TV shows and movies
+- Google Drive integration, for "unlimited" storage in the cloud (encrypted)
+- VPN integration for protected torrent downloading
+- Automatic SSL (https) certificate generation
+- Automatic daily backups using borg (only for configuration and app data, as the 
+  media will be saved in Google Drive)
+- Automatic update of docker images using watchtower
 
 ### Applications (and their respective docker projects):
 - Plex - https://github.com/linuxserver/docker-plex
@@ -10,25 +19,16 @@ apps.
 - Tautulli - https://github.com/linuxserver/docker-tautulli
 - Ombi - https://github.com/linuxserver/docker-ombi
 - Jackett - https://github.com/linuxserver/docker-jackett
-- Caddy+Docker plugin - https://github.com/lucaslorentz/caddy-docker-proxy
+- Caddy - [Sub project `caddy`](caddy)
 - Rclone - [Sub project `rclone-gdrive`](rclone-gdrive)
 - Transmission (+VPN) - https://github.com/haugene/docker-transmission-openvpn
 - Borgmatic - https://github.com/b3vis/docker-borgmatic
 - Watchtower - https://github.com/containrrr/watchtower
 - Portainer - https://hub.docker.com/r/portainer/portainer
 
-### Features:
-- Fully automated solution, with automatic download for TV shows and movies
-- Google Drive integration, for "unlimited" storage in the cloud (encrypted)
-- VPN integration for protected torrent downloading
-- Automatic SSL (https) certificates generation
-- Automatic daily backups using borg (only for configuration and app data, as the 
-  media will be saved in Google Drive)
-- Automatic update of docker images using watchtower
-
 ### Requirements:
-- Google Drive account
-- VPN account
+- Google Drive account (may not be necessary, but will require some changes)
+- VPN account (if using the provided Transmission setup)
 
 # Folder structure
 Important files and folders:
@@ -61,7 +61,7 @@ plexflix
 
 ## Install required software
 1. Create a user, preferable with uid=1000/gid=1000 (if not, change these values in 
-   the `.env` file)
+   the `.env` file, see Initial Configuration bellow)
 2. Login with the newly created user
 3. Install Docker:
     ```
@@ -92,8 +92,8 @@ initial configuration**.
 You can change some Docker configurations (ex: volume paths) by creating a 
 `docker-compose.override.yml`. See [Docker Compose documentation](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) for details 
 
-If you don't want or need one of the service in this project, say transmission for 
-example, just add the following in your override file:
+If you don't want or need one of the service in this project, say *Transmission* for 
+example, just disable it by adding the following in your override file:
 ```
 version: '3.7'
 services:
@@ -123,7 +123,7 @@ there.
 Start Plex with `docker-compose up plex`, go to http://your_ip:32400/web and follow the 
 instructions. If you are installing in a remote server (different network), please follow
 [these instructions](https://support.plex.tv/articles/200288586-installation/#toc-2) 
-(see "On a Different Network" section).
+(see *"On a Different Network"* section).
 
 After Plex is up and running, change the Transcoding path to `/transcode`, so it uses a 
 RAM disk to do the transcoding, which is much faster and less of a toll to your HDD/SDD
@@ -131,11 +131,11 @@ RAM disk to do the transcoding, which is much faster and less of a toll to your 
 ## Transmission + VPN
 See https://github.com/haugene/docker-transmission-openvpn for details on how to
 configure the VPN access. If you are using a custom VPN, copy your VPN Config 
-to `/config/vpn`
+to `./config/vpn`
 
 ## Borgmatic (backup)
 Before borgmatic can do its magic, you need to create a new borg repository. Make sure 
-to set your password in `/config/borgmatic/config.yml` first
+to set your password in `./config/borgmatic/config.yml` first
 
 To simplify access to your backups, create the following aliases in our `.bashrc`:
 ```
