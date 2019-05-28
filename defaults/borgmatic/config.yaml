@@ -16,13 +16,17 @@ location:
     repositories:
         - /mnt/repository
     one_file_system: true
+
     exclude_patterns:
+        - '/**/ombi/*.db-journal'
         - '/**/MediaCover/*'
         - '/**/Backups/*'
+        - '/**/UpdateLogs/*'
         - '/**/backups/*'
         - '/**/cache/*'
         - '/**/logs/*'
-        
+        - '**/log*.txt'
+
 storage:
     encryption_passphrase: "DonNotMissToChangeYourPassphrase"
     compression: lz4
