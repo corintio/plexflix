@@ -1,0 +1,135 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start transmission-magnet-watcher at boot time
+# Description:       Enable service provided by transmission-magnet-watcher.
+### END INIT INFO
+
+TRANSMISSION_HOST=localhost
+TRANSMISSION_RPC_PORT=$TRANSMISSION_RPC_PORT
+TRANSMISSION_RPC_USERNAME=$TRANSMISSION_RPC_USERNAME
+TRANSMISSION_RPC_PASSWORD=$TRANSMISSION_RPC_PASSWORD
+TRANSMISSION_WATCH_DIR=$TRANSMISSION_WATCH_DIR
+
+dir="/"
+
+name=`basename $0`
+pid_file="/var/run/$name.pid"
+stdout_log="/dev/stdout"
+stderr_log="/dev/stderr"
+
+process_file_found() {
+    path=$1
+    file=$2
+    if [[ ${file} == *.magnet ]]; then
+        echo "New MAGNET file '${file}' appeared in directory '${path}'. Adding to Transmission"
+        FILE=`cat "${path}/${file}"`
+        transmission-remote localhost:${TRANSMISSION_RPC_PORT} \
+            --auth ${TRANSMISSION_RPC_USERNAME}:${TRANSMISSION_RPC_PASSWORD} -a ${FILE}
+        if [ $? == 0 ]; then
+            mv "${path}/${file}" "${path}/${file}.added" 
+        else
+            echo "ERROR submiting file to transmission: ${path}/${file}"
+        fi
+    fi
+}
+
+magnet_watch() {
+    if ! which inotifywait; then
+        echo "Installing inotify-tools"
+        export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        apt-get update
+        apt-get install -y inotify-tools
+        apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    fi
+
+    echo "Processing any pending magnet files"
+    find ${TRANSMISSION_WATCH_DIR} -name "*.magnet" -printf "%f\n" |
+        while read file; do
+            process_file_found "${TRANSMISSION_WATCH_DIR}" "${file}"
+        done
+
+    echo "Starting magnet file watcher"
+    inotifywait -m -e create -e moved_to ${TRANSMISSION_WATCH_DIR} |
+        while read path action file; do
+            process_file_found "${path}" "${file}"
+        done
+}
+
+get_pid() {
+    cat "$pid_file"
+}
+
+is_running() {
+    [ -f "$pid_file" ] && ps -p `get_pid` > /dev/null 2>&1
+}
+
+case "$1" in
+    start)
+    if is_running; then
+        echo "Already started"
+    else
+        echo "Starting $name"
+        cd "$dir"
+        magnet_watch >> "$stdout_log" 2>> "$stderr_log" &
+        echo $! > "$pid_file"
+        if ! is_running; then
+            echo "Unable to start, see $stdout_log and $stderr_log"
+            exit 1
+        fi
+    fi
+    ;;
+    stop)
+    if is_running; then
+        echo -n "Stopping $name.."
+        pkill -P `get_pid`
+        for i in 1 2 3 4 5 6 7 8 9 10
+        # for i in `seq 10`
+        do
+            if ! is_running; then
+                break
+            fi
+
+            echo -n "."
+            sleep 1
+        done
+        echo
+
+        if is_running; then
+            echo "Not stopped; may still be shutting down or shutdown may have failed"
+            exit 1
+        else
+            echo "Stopped"
+            if [ -f "$pid_file" ]; then
+                rm "$pid_file"
+            fi
+        fi
+    else
+        echo "Not running"
+    fi
+    ;;
+    restart)
+    $0 stop
+    if is_running; then
+        echo "Unable to stop, will not attempt to start"
+        exit 1
+    fi
+    $0 start
+    ;;
+    status)
+    if is_running; then
+        echo "Running"
+    else
+        echo "Stopped"
+        exit 1
+    fi
+    ;;
+    *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

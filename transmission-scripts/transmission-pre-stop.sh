@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo "Stopping magnet watcher"
-pkill inotifywait
+cd `dirname $0`
+./transmission-magnet-watcher start
