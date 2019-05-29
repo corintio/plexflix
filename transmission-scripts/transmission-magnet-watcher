@@ -13,7 +13,7 @@ TRANSMISSION_RPC_USERNAME=$TRANSMISSION_RPC_USERNAME
 TRANSMISSION_RPC_PASSWORD=$TRANSMISSION_RPC_PASSWORD
 TRANSMISSION_WATCH_DIR=$TRANSMISSION_WATCH_DIR
 
-dir="/"
+download_dir=/data/completed/direct
 
 name=`basename $0`
 pid_file="/var/run/$name.pid"
@@ -27,7 +27,8 @@ process_file_found() {
         echo "New MAGNET file '${file}' appeared in directory '${path}'. Adding to Transmission"
         FILE=`cat "${path}/${file}"`
         transmission-remote localhost:${TRANSMISSION_RPC_PORT} \
-            --auth ${TRANSMISSION_RPC_USERNAME}:${TRANSMISSION_RPC_PASSWORD} -a ${FILE}
+            --auth ${TRANSMISSION_RPC_USERNAME}:${TRANSMISSION_RPC_PASSWORD} \
+            --download-dir ${download_dir} -a ${FILE}
         if [ $? == 0 ]; then
             mv "${path}/${file}" "${path}/${file}.added" 
         else
@@ -37,6 +38,7 @@ process_file_found() {
 }
 
 magnet_watch() {
+    cd /
     if ! which inotifywait; then
         echo "Installing inotify-tools"
         export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -72,7 +74,6 @@ case "$1" in
         echo "Already started"
     else
         echo "Starting $name"
-        cd "$dir"
         magnet_watch >> "$stdout_log" 2>> "$stderr_log" &
         echo $! > "$pid_file"
         if ! is_running; then
