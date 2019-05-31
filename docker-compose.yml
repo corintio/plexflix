@@ -128,7 +128,7 @@ services:
       - ./config/plex:/config
       - ./logs/plex:/config/Library/Application Support/Plex Media Server/Logs
       - ./data:/data:shared
-    tmpfs: /transcode
+    tmpfs: /transcode:uid=${PUID},gid=${PGID}
     # ports:
     #   - 32400:32400
     network_mode: host
