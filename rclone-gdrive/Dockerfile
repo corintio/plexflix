@@ -7,7 +7,7 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
     chmod 755 /usr/bin/rclone
 
 RUN wget -O /usr/bin/mergerfs https://github.com/trapexit/mergerfs/releases/download/2.26.2/mergerfs-static-amd64 && \
-    chmod +x /usr/bin/mergerfs
+    chmod 755 /usr/bin/mergerfs
 
 FROM lsiobase/alpine
 COPY --from=builder /usr/bin/rclone /usr/bin
