@@ -1,20 +1,21 @@
 Rclone Gdrive
 =============
 
-Rclone mount container, optmized to work with Google Drive. It uses an union mount to keep new files
-locally, and uploads them using a cronjob. This is similar to solutions like Plexdrive+UnionFS and 
-Rclone+MergeFS, but all code and configuration is self-contained, for easy configuration and testing.
+[Rclone](https://rclone.org) mount container, optmized to work with Google Drive. It 
+uses [mergerfs](https://github.com/trapexit/mergerfs) to keep new files locally, and 
+uploads them using a cronjob. This is similar to solutions using Plexdrive+UnionFS, but 
+all code and configuration is self-contained, for easy setup and testing.
 
-This project is based on:
+This project *borrows* some ideas from:
 - https://github.com/animosity22/homescripts
 - https://hoarding.me/rclone-scripts/
 - https://hub.docker.com/r/mumiehub/rclone-mount
 
 
 ## Usage
-By default, the container expects a `rclone.conf` file in the `/config` folder. It will fail if 
-the config file is not found. This config must define the remote used to store your data. It
-must match the env var REMOTE_PATH
+By default, the container expects a `rclone.conf` file in the `/config` folder. It will 
+fail if the config file is not found. This config must define the remote used to store 
+your data. It must match the env var REMOTE_PATH (default `gcrypt:`)
 
 
 ### With Docker
@@ -69,4 +70,6 @@ RCLONE_UPLOAD_OPTIONS=-c \
     --drive-chunk-size 32M \
     --delete-empty-src-dirs
 RCLONE_LOG_LEVEL=INFO
+MERGERFS_OPTIONS=-o defaults,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff
+
 ```
