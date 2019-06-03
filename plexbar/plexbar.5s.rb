@@ -99,6 +99,7 @@ class TautulliPlugin
     sessions.each do |session|
       out = out + format_session(session)
     end
+    out = ["---"] + out if out.size > 0
     out << "---" if out.size > 0
     out
   end  
@@ -111,7 +112,17 @@ class TautulliPlugin
       recent["data"]["recently_added"].each do |item|
         out << "--#{get_title(item)} | href=#{@base_url}/info?rating_key=#{item["rating_key"]}"
       end
-      out << "---"
+    end
+    out
+  end
+
+  def libraries
+    out = ["Libraries"]
+    libs = tautulli("get_libraries")
+    libs["data"].each do |lib|
+      count = lib["count"]
+      count += "/#{lib["parent_count"]}/#{lib["child_count"]}" unless lib["section_type"] == "movie"
+      out << "--%-15s  %15s | color=white font=Courier " % [lib["section_name"], count]
     end
     out
   end
@@ -387,6 +398,7 @@ output = with_captured_stdout do
   every 1, tautulli, :server_name
   every 1, tautulli, :total_bandwidth
   every 3, tautulli, :recently_added
+  every 24, tautulli, :libraries
   every 1, tautulli, :plex_sessions
 
   # Sonarr
