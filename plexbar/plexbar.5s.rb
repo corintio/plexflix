@@ -9,11 +9,8 @@
 # <bitbar.dependencies>tautulli</bitbar.dependencies>
 # <bitbar.abouturl>https://github.com/corintio/plexflix/tree/master/plexbar</bitbar.abouturl>
 
-require 'json'
-require 'base64'
 require 'open-uri'
-require 'net/http'
-require 'date'
+require 'json'
 require 'yaml'
 
 # External files
@@ -122,7 +119,8 @@ class TautulliPlugin
     libs["data"].each do |lib|
       count = lib["count"]
       count += "/#{lib["parent_count"]}/#{lib["child_count"]}" unless lib["section_type"] == "movie"
-      out << "--%-15s  %15s | color=white font=Courier " % [lib["section_name"], count]
+      url = "#{@base_url}/library?section_id=#{lib["section_id"]}"
+      out << "--%-14s %15s | color=white font=Courier href=%s" % [lib["section_name"], count, url]
     end
     out
   end
@@ -397,8 +395,8 @@ tautulli = TautulliPlugin.new(@config["tautulli"])
 output = with_captured_stdout do
   every 1, tautulli, :server_name
   every 1, tautulli, :total_bandwidth
-  every 3, tautulli, :recently_added
   every 24, tautulli, :libraries
+  every 3, tautulli, :recently_added
   every 1, tautulli, :plex_sessions
 
   # Sonarr
