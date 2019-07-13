@@ -11,6 +11,7 @@ services:
     env_file:
       - .env
     labels:
+      com.centurylinklabs.watchtower.enable: false
       caddy: '${DOMAIN}'
       caddy.tls.dns: '${TLS_DNS_PROVIDER}'
       caddy.log: /var/log/access.log
@@ -158,6 +159,8 @@ services:
   rclone:
     build : rclone-gdrive
     container_name: rclone
+    labels:
+      com.centurylinklabs.watchtower.enable: false
     cap_add:
       - SYS_ADMIN
     devices:
