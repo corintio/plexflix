@@ -6,8 +6,15 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
     chown root:root /usr/bin/rclone && \
     chmod 755 /usr/bin/rclone
 
-RUN wget -O /usr/bin/mergerfs https://github.com/trapexit/mergerfs/releases/download/2.26.2/mergerfs-static-amd64 && \
-    chmod 755 /usr/bin/mergerfs
+RUN apk add --update --no-cache \
+    g++ make python linux-headers git
+
+RUN wget https://github.com/trapexit/mergerfs/releases/download/2.28.1/mergerfs-2.28.1.tar.gz && \
+    tar xvfz mergerfs-2.28.1.tar.gz
+
+RUN cd mergerfs-2.28.1 && \
+    make STATIC=1 LTO=1 && \
+    mv build/mergerfs /usr/bin
 
 FROM lsiobase/alpine
 COPY --from=builder /usr/bin/rclone /usr/bin
