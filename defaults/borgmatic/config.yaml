@@ -50,7 +50,10 @@ consistency:
 hooks:
     before_backup:
         - echo "Starting a backup job."
+        - date "+%Y%m%d%H%M%S" > /tmp/jobname
     after_backup:
-        - /etc/borgmatic.d/upload_backup.sh
+        - /etc/borgmatic.d/upload_backup.sh 2>&1 | tee $(cat /tmp/jobname)
+        - /etc/borgmatic.d/slack_send.py ":information_source:" "Backup Successful" "$(cat $(cat /tmp/jobname))"
     on_error:
         - echo "Error while creating a backup."
+        - /etc/borgmatic.d/slack_send.py ":bangbang:" "Error while creating a backup" "$(cat $(cat /tmp/jobname))"

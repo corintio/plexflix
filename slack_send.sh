@@ -6,11 +6,10 @@ function post_to_slack () {
   # format message as a code block ```${msg}```
   SLACK_MESSAGE="\`\`\`$2\`\`\`"
   # SLACK_URL=https://hooks.slack.com/services/your-service-identifier-part-here
-  SLACK_URL=https://hooks.slack.com/services/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
- 
+  
   case "$1" in
     INFO)
-      SLACK_ICON=':slack:'
+      SLACK_ICON=':information_source:'
       ;;
     WARNING)
       SLACK_ICON=':warning:'
@@ -22,11 +21,11 @@ function post_to_slack () {
       SLACK_ICON=':slack:'
       ;;
   esac
- 
-  curl -X POST --data "payload={\"text\": \"${SLACK_ICON} ${SLACK_MESSAGE}\"}" ${SLACK_URL}
+
+  curl -X POST --data "{\"text\": \"${SLACK_ICON} ${SLACK_MESSAGE}\"}" ${SLACK_URL} 
 }
 
 LEVEL=$1
 shift
 MSG="$@"
-post_to_slack $LEVEL $MSG
+post_to_slack $LEVEL "$MSG"

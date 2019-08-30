@@ -211,6 +211,7 @@ services:
       - ./config:/mnt/source/config:ro
       - ./data/backups:/mnt/repository
       - ./config/borgmatic:/etc/borgmatic.d/
+      - ./slack_send.py:/etc/borgmatic.d/slack_send.py
       - ./config/borgmatic/borg:/root/.config/borg
       - ./data/borgmatic/.cache:/root/.cache/borg
       - /var/run/docker.sock:/var/run/docker.sock:ro
