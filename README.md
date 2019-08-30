@@ -181,6 +181,11 @@ be exposed to external access
 - ~~Use Transmission-OpenVPN's proxy in Sonarr/Radar/Jackett~~
 - ~~Use Plex Autoscan: https://github.com/l3uddz/plex_autoscan/~~ Not necessary for now
 - Expose Plex through port 80/443
+- Monitoring / Notifications
+    - Last updated containers
+    - Last backup status
+    - Errors in logs
+    - Container's health
 - CronJobs: https://hub.docker.com/r/willfarrell/crontab?
   - Auto clean .trash (remove older than 1 month)
   - Docker-GC: https://github.com/spotify/docker-gc
