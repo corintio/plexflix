@@ -7,31 +7,30 @@ write-once, large files (like media files and backup archives). It uses
 uploads them using a cronjob. This is similar to solutions using Plexdrive+UnionFS, but 
 all code and configuration is self-contained, for easy setup and testing.
 
-What this project provides is nothing new, and has been implemented before many times, 
-with this same approach or different solutions (see the *Credits* bellow). The goal of 
-this project is to make the setup as straightforward as possible, thanks to the 
-encapsulation provided by Docker. 
+This project does not provides anything new, and this approach has been implemented before many 
+times, with slightly different solutions (see the *Credits* bellow). The goal of this project is 
+to make the setup as straightforward as possible, thanks to the encapsulation provided by Docker. 
 
 ## Requirements
-This has only been tested with Linux. You'll need to have the following software 
-installed in your computer:
+This has only been tested on Linux hosts. You'll need to have the following software 
+installed in your computer (installation instructions depend on your Linux flavour, these are 
+for Ubuntu):
 
 - **Docker**:
 ```
 sudo curl -L https://get.docker.com | bash
 sudo usermod -aG docker $USER
 ```
-- **Fuse**. Installation instructions depend on your Linux flavour. For Ubuntu:
+- **Fuse**:
 ```
 sudo apt-get update
 sudo apt-get install fuse
 ```
 
-
 ## Usage
 By default, the container expects a `rclone.conf` file in the `/config` folder. It will 
-fail if the config file is not found. This config must define the remote used to store 
-your data. It must match the env var $REMOTE_PATH (default `gcrypt:`).
+fail if the config file is not found. This config must define the _remote_ used to store 
+your data. The _remote_ name must match the env var $REMOTE_PATH (default `gcrypt:`).
 
 It will mount the merged folder in the path defined in the $LOCAL_MOUNT env var 
 (default `/data/gmedia`). The local buffer for new files not uploaded yet is located in 

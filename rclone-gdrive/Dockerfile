@@ -9,10 +9,10 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
 RUN apk add --update --no-cache \
     g++ make python linux-headers git
 
-RUN wget https://github.com/trapexit/mergerfs/releases/download/2.28.1/mergerfs-2.28.1.tar.gz && \
-    tar xvfz mergerfs-2.28.1.tar.gz
+RUN wget https://github.com/trapexit/mergerfs/releases/download/2.28.3/mergerfs-2.28.3.tar.gz && \
+    tar xvfz mergerfs-2.28.3.tar.gz
 
-RUN cd mergerfs-2.28.1 && \
+RUN cd mergerfs-2.28.3 && \
     make STATIC=1 LTO=1 && \
     mv build/mergerfs /usr/bin
 
