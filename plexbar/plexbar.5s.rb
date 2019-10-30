@@ -70,7 +70,7 @@ class TautulliPlugin
     @server_name ||= @servers_info["data"][0]["name"]
     @server_version ||= @servers_info["data"][0]["version"]
 
-    out = ["#{@server_name} | image=#{TAUTULLI_ICON} href=#{@base_url}/home"]
+    out = ["#{@server_name} | image=#{TAUTULLI_ICON} href=https://app.plex.tv/desktop"]
     out << "#{@server_version} | image=#{TAUTULLI_ICON} href=#{@base_url}/home alternate=true"
     out
   end
