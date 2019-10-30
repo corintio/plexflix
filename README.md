@@ -193,7 +193,7 @@ be exposed to external access
   - Call watchtower(?)
 - Replace htpasswd with Google Authentication oAuth (https://github.com/tarent/loginsrv/blob/master/caddy/README.md#example-caddyfile-with-google-login)
 - Finish Ansible setup
-- Investigate use of hardlinks and moves in Sonarr/Radarr
+- ~~Investigate use of hardlinks and moves in Sonarr/Radarr~~
 
 # Future
 - Move Rclone to own project and publish the image in Docker Hub
@@ -202,5 +202,5 @@ be exposed to external access
 - Calibre https://hub.docker.com/r/linuxserver/calibre-web/
 - Cockpit https://cockpit-project.org/
 - Investigate qBittorrent+SOCKS5
-- More info in PlexBar (vnstat, upload_queue, load average, disk usage, real mem, 
+- Add more info in PlexBar (vnstat, upload_queue, load average, disk usage, real mem, 
   recent errors, gdrive quota, sensors)
