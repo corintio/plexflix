@@ -1,12 +1,10 @@
 PlexBar
 =======
 
-This is a plugin for [BitBar](https://getbitbar.com/). It allows you to keep an eye on 
-your services:
+This is a plugin for [BitBar](https://getbitbar.com/). It allows you to keep an eye on your services:
 
 
-![Screenshot](https://i.imgsafe.org/b5/b5c1322ba7.png)
-
+![Screenshot](https://res.cloudinary.com/dmmwyzcym/image/upload/v1572967589/Screen_Shot_2019-11-03_at_23.54.31_a5tv3a.png)
 
 
 Configure your servers in `~/.plexbar.yml`. Sample config:
