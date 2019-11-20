@@ -103,7 +103,11 @@ services:
 ```
 
 ## Caddy
+
+You'll need to create a user/password to restrict access to your server. Use the following commands to do so (replace `username` and `your.domain.com` with your own):
+
 ```
+cd ~/plexflix
 htpasswd -B -C 15 -c ./config/caddy/.htpasswd username
 echo "your.domain.com" > ./config/caddy/redirect_hosts.txt
 ```
