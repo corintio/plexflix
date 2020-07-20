@@ -9,7 +9,7 @@ upload_queue() {
 }
 alias queue_info='watch -t -n 10 -d -x $SHELL -c "source ~/.custom; upload_queue"'
 
-alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
+#alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 alias ddc='f() { (cd ~/plexflix && docker-compose $@) }; f'
 alias borgmatic='ddc run --rm  borgmatic borgmatic'
 alias borg='ddc run --rm borgmatic borg'
