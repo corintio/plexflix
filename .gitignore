@@ -8,5 +8,5 @@ secrets
 /*.retry
 *.log
 docker-compose.override.yml
-
+.vscode
 homescripts
