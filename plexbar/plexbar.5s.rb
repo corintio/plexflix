@@ -168,9 +168,11 @@ end
 class PVRPlugin
   attr_reader :name
 
-  def initialize(name, config)
+  def initialize(name, config, api_version = "")
     @output = Hash.new
     @base_url = config["url"]
+    @api_url = "#{@base_url}/api"
+    @api_url = "#{@api_url}/#{api_version}" if api_version != ""
     @user = config["user"]
     @password = config["password"]
     @api_key = config["apikey"]
@@ -231,7 +233,7 @@ class PVRPlugin
   def call_api(cmd, args = "")
     @output[cmd+args] ||= (
       options = @user ? {http_basic_authentication: [@user, @password]} : Hash.new
-      content = open("#{@base_url}/api/#{cmd}?apikey=#{@api_key}#{args}", options).read
+      content = URI.open("#{@api_url}/#{cmd}?apikey=#{@api_key}#{args}", options).read
       JSON.parse(content)
     )
   end
@@ -363,7 +365,7 @@ class NavidromePlugin
   def call_rest(method, args = "")
     default_args = "u=#{@user}&p=#{@password}&c=plexflix&f=json&v=1.12.0"
     @output[method+args] ||= (
-      content = open("#{@base_url}/rest/#{method}?#{default_args}#{args}").read
+      content = URI.open("#{@base_url}/rest/#{method}?#{default_args}#{args}").read
       JSON.parse(content)
     )
   end
@@ -453,7 +455,7 @@ output = with_captured_stdout do
 
   # Radarr
   if @config["radarr"]
-    radarr = PVRPlugin.new("radarr", @config["radarr"])
+    radarr = PVRPlugin.new("radarr", @config["radarr"], "v3")
     puts "---"
     puts "Radarr | image=#{RADARR_ICON} href=#{@config["radarr"]["url"]}"
     every 12, radarr, :calendar
