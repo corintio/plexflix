@@ -7,7 +7,7 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
     chmod 755 /usr/bin/rclone
 
 RUN apk add --update --no-cache \
-    g++ make python linux-headers git
+    g++ make python3 linux-headers git
 
 RUN wget https://github.com/trapexit/mergerfs/releases/download/2.28.3/mergerfs-2.28.3.tar.gz
 RUN tar xvfz mergerfs-2.28.3.tar.gz
@@ -16,7 +16,7 @@ RUN cd mergerfs-2.28.3 && \
     make STATIC=1 LTO=1 && \
     mv build/mergerfs /usr/bin
 
-FROM lsiobase/alpine
+FROM lsiobase/alpine:3.15
 COPY --from=builder /usr/bin/rclone /usr/bin
 COPY --from=builder /usr/bin/mergerfs /usr/bin
 
